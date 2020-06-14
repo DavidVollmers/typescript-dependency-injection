@@ -154,14 +154,14 @@ The default injection behaviour. This means whenever an instance of the dependen
 
 #### Scoped
 
-All dependencies marked as [`@Scoped`]() or added with [`DependencyContainer::addScoped`]().
+All dependencies marked as [`@Scoped`]().
 
 Per default this behaviour is the same as **Transient**. Only when using [`DependencyContainer::useScope`]() it will have an effect:
 Whenever an instance of the dependency is required, a new one **per new scope** will be served.
 
 #### Singleton
 
-All dependencies marked as [`@Singleton`]() or added with [`DependencyContainer::addSingleton`]().
+All dependencies marked as [`@Singleton`]().
 
 This means whenever an instance of the dependency is required, **the same one** will be served.
 
@@ -175,7 +175,6 @@ import {FooService} from './services/foo-service'
 
 const dc = new DependencyContainer
 
-// Also works for .addScoped and .addSingleton
 dc.add( AbstractFooService, FooService )
 ``` 
 
