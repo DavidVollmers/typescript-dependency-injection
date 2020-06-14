@@ -1,0 +1,20 @@
+{
+  "name": "@dvolper/typescript-dependency-injection",
+  "version": "0.1.0",
+  "description": "TypeScript Dependency Injection",
+  "author": "David Vollmers <david@vollmers.org>",
+  "homepage": "https://github.com/DavidVollmers/typescript-dependency-injection",
+  "private": true,
+  "dependencies": {
+    "lerna": "^3.22.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidVollmers/typescript-dependency-injection.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DavidVollmers/typescript-dependency-injection/issues"
+  }
+}
