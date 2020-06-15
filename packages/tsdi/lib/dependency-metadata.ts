@@ -7,5 +7,10 @@ export enum DependencyInjectionBehaviour
 
 export type DependencyMetadata = {
   key?: string
-  injectionBehaviour?: DependencyInjectionBehaviour
+  injectionBehaviour?: DependencyInjectionBehaviour,
+  resolve?: {
+    properties?: {
+      [ key: string ]: any
+    }
+  }
 }

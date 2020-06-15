@@ -15,19 +15,25 @@ interface RegisteredDependency<TDependency extends object>
 
 export class DependencyContainer
 {
+  private static readonly _globalInstance: DependencyContainer = new DependencyContainer
   private readonly _registeredDependencies: {
     [ key: string ]: RegisteredDependency<any>
-  } = {}
+  }                                                            = {}
   private readonly _abstractionMapping: {
     [ key: string ]: string[]
-  } = {}
+  }                                                            = {}
   private readonly _singletonInstances: {
     [ key: string ]: any
-  } = {}
+  }                                                            = {}
   private readonly _scopedInstances: {
     [ key: string ]: any
-  } = {}
+  }                                                            = {}
   private _currentScope?: string
+
+  public static get global (): DependencyContainer
+  {
+    return this._globalInstance
+  }
 
   private verifyMetadata ( target: TypeReference ): void
   {
@@ -216,8 +222,8 @@ export class DependencyContainer
         return this.create( target )
       }
     }
-    let resolved = DependencyContainer.resolveArgument( target,
-                                                        args )
+    let resolved = DependencyContainer.resolveTarget( target,
+                                                      args )
     if( resolved ) return resolved
     if( type === 'function' && target.__tsdi__ ) {
       const instance = this.abstract( target )
@@ -251,6 +257,22 @@ export class DependencyContainer
     else if( creator.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Scoped
              && this._currentScope ) {
       this._scopedInstances[ creator.__tsdi__.key ] = dependency
+    }
+    if( creator.__tsdi__.resolve && creator.__tsdi__.resolve.properties ) {
+      for( const propertyKey of Object.keys( creator.__tsdi__.resolve.properties ) ) {
+        const propertyType = creator.__tsdi__.resolve.properties[ propertyKey ]
+        Object.defineProperty( dependency,
+                               propertyKey,
+                               {
+                                 get: ( _ => {
+                                   let instance: any = null
+                                   return () => {
+                                     if( !instance ) instance = this.create( _ )
+                                     return instance
+                                   }
+                                 } )( propertyType ),
+                               } )
+      }
     }
     return dependency
   }
@@ -301,14 +323,30 @@ export class DependencyContainer
                                              'DependencyContainer::exitScope' ) )
     }
     if( this._currentScope !== scope ) return
+    this.disposeCurrentScope()
+  }
+
+  private disposeCurrentScope (): void
+  {
     for( const key of Object.keys( this._scopedInstances ) ) {
       delete this._scopedInstances[ key ]
     }
     delete this._currentScope
   }
 
-  private static resolveArgument ( target: any,
-                                   context: any[] ): any
+  public dispose (): void
+  {
+    this.disposeCurrentScope()
+    for( const key of Object.keys( this._singletonInstances ) ) {
+      delete this._singletonInstances[ key ]
+    }
+    for( const key of Object.keys( this._registeredDependencies ) ) {
+      delete this._registeredDependencies[ key ]
+    }
+  }
+
+  private static resolveTarget ( target: any,
+                                 context: any[] ): any
   {
     if( !context || !context.length ) return null
     const type = typeof target
@@ -317,6 +355,10 @@ export class DependencyContainer
       if( type === type2
           || type2 === 'number' && target === Number
           || type2 === 'string' && target === String
+          || type2 === 'boolean' && target === Boolean
+          || type2 === 'bigint' && target === BigInt
+          || type2 === 'symbol' && target === Symbol
+          || type2 === 'object' && ( target === Object || Array.isArray( target ) )
           || type === 'function' && context[ index ] instanceof target ) {
         const value = context[ index ]
         context.splice( index,

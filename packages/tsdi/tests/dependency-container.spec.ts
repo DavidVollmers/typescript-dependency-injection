@@ -7,6 +7,7 @@ import {UnverifiedKeyGenerator}                     from './unverified-key-gener
 import {TestKeyGenerator}                           from './test-key-generator'
 import {DependencyCreator}                          from '../lib/dependency-creator'
 import {SingletonTestService}                       from './singleton-test-service'
+import {ScopedTestService}                          from './scoped-test-service'
 
 describe( 'DependencyContainer',
           () => {
@@ -110,6 +111,41 @@ describe( 'DependencyContainer Decorators',
                   const instance2 = dc.create( SingletonTestService,
                                                'WILL BE IGNORED' )
                   expect( instance2 instanceof SingletonTestService )
+                    .toBe( true )
+                  expect( instance2.constructorEcho )
+                    .toBe( input1 )
+                } )
+            it( 'Scoped without scope (Transient)',
+                () => {
+                  const input1    = 'input-1'
+                  const instance1 = dc.create( ScopedTestService,
+                                               input1 )
+                  expect( instance1 instanceof ScopedTestService )
+                    .toBe( true )
+                  expect( instance1.constructorEcho )
+                    .toBe( input1 )
+                  const input2    = 'input-2'
+                  const instance2 = dc.create( ScopedTestService,
+                                               input2 )
+                  expect( instance2 instanceof ScopedTestService )
+                    .toBe( true )
+                  expect( instance2.constructorEcho )
+                    .toBe( input2 )
+                } )
+            it( 'Scoped with scope (Singleton)',
+                () => {
+                  const scope = 'test-scope'
+                  dc.useScope( scope )
+                  const input1    = 'input-1'
+                  const instance1 = dc.create( ScopedTestService,
+                                               input1 )
+                  expect( instance1 instanceof ScopedTestService )
+                    .toBe( true )
+                  expect( instance1.constructorEcho )
+                    .toBe( input1 )
+                  const instance2 = dc.create( ScopedTestService,
+                                               'WILL BE IGNORED' )
+                  expect( instance2 instanceof ScopedTestService )
                     .toBe( true )
                   expect( instance2.constructorEcho )
                     .toBe( input1 )
