@@ -10,10 +10,12 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
+    "test:coverage": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
-  "dependencies": {},
+  "peerDependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
   "devDependencies": {
     "@types/jest": "25.2.3",
     "jest": "26.0.1",
@@ -27,12 +29,15 @@
       "js",
       "ts"
     ],
-    "rootDir": "tests",
+    "rootDir": ".",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "coverageDirectory": "../coverage",
+    "collectCoverageFrom": [
+      "lib/**/*.ts"
+    ],
     "testEnvironment": "node"
   }
 }

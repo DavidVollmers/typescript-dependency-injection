@@ -5,6 +5,7 @@ import {DependencyProvider}                         from './dependency-provider'
 import {DependencyQuery}                            from './collections/dependency-query'
 import {DependencyKeyGenerator}                     from './extensions/dependency-key-generator'
 import {TypeReference}                              from './type-reference'
+import {DependencyInjectionBehaviour}               from './dependency-metadata'
 
 interface RegisteredDependency<TDependency extends object>
 {
@@ -20,9 +21,25 @@ export class DependencyContainer
   private readonly _abstractionMapping: {
     [ key: string ]: string[]
   } = {}
+  private readonly _singletonInstances: {
+    [ key: string ]: any
+  } = {}
+  private readonly _scopedInstances: {
+    [ key: string ]: any
+  } = {}
+  private _currentScope?: string
 
   private verifyMetadata ( target: TypeReference ): void
   {
+    if( target === DependencyKeyGenerator
+        || DependencyContainer.isPrototypeAssignableFrom( target.prototype,
+                                                          DependencyKeyGenerator ) ) {
+      if( !target.__tsdi__
+          || !target.__tsdi__.key ) {
+        throw new Error( '[@dvolper/tsdi]: DependencyKeyGenerator must be self verified. (TSDI Key is missing)' )
+      }
+      return
+    }
     if( !target.__tsdi__ ) target.__tsdi__ = {}
     const extensions = this.abstract<DependencyKeyGenerator>( DependencyKeyGenerator )
     for( const extension of extensions ) {
@@ -108,8 +125,30 @@ export class DependencyContainer
   public abstract<TAbstraction extends object> ( abstraction: AbstractDependency<TAbstraction>,
                                                  ...args: any[] ): DependencyQuery<TAbstraction>
   {
+    if( !abstraction ) {
+      throw new Error( MissingArgumentError( 'abstraction',
+                                             'DependencyContainer::abstract' ) )
+    }
+    if( typeof abstraction !== 'function' ) {
+      throw new Error( InvalidArgumentError( 'abstraction',
+                                             'of type Function',
+                                             'DependencyContainer::abstract' ) )
+    }
+    if( !Array.isArray( args ) ) {
+      throw new Error( InvalidArgumentError( 'args',
+                                             'of type Array',
+                                             'DependencyContainer::abstract' ) )
+    }
+    const dependencies: DependencyCreator<TAbstraction>[] = []
+    for( const key of Object.keys( this._registeredDependencies ) ) {
+      const dependency = this._registeredDependencies[ key ].dependency
+      if( DependencyContainer.isPrototypeAssignableFrom( dependency.prototype,
+                                                         abstraction ) ) {
+        dependencies.push( dependency )
+      }
+    }
     return new DependencyQuery( this,
-                                [],
+                                dependencies,
                                 args )
   }
 
@@ -125,19 +164,177 @@ export class DependencyContainer
                                              'of type Function',
                                              'DependencyContainer::create' ) )
     }
-    const instance = new dependency()
+    if( !Array.isArray( args ) ) {
+      throw new Error( InvalidArgumentError( 'args',
+                                             'of type Array',
+                                             'DependencyContainer::create' ) )
+    }
+    if( dependency.__tsdi__ ) {
+      if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
+          && this._singletonInstances[ dependency.__tsdi__.key ] ) {
+        return this._singletonInstances[ dependency.__tsdi__.key ]
+      }
+      if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Scoped
+          && this._currentScope && this._scopedInstances[ dependency.__tsdi__.key ] ) {
+        return this._scopedInstances[ dependency.__tsdi__.key ]
+      }
+      const registered = this._registeredDependencies[ dependency.__tsdi__.key ]
+      if( registered && registered.provider ) {
+        return registered.provider( this )
+      }
+    }
+    const creationArguments = this.resolveCreationArguments( dependency,
+                                                             args )
+    const instance          = new dependency( ...creationArguments )
     return this.resolve( instance )
+  }
+
+  private resolveCreationArguments<TDependency extends object> ( dependency: DependencyCreator<TDependency>,
+                                                                 args: any[] ): any[]
+  {
+    const metadata = Reflect.getMetadata( 'design:paramtypes',
+                                          dependency )
+    if( metadata && metadata.length ) {
+      const creationArguments: any[] = []
+      for( let index = 0; index < metadata.length; index++ ) {
+        creationArguments.push( this.resolveCreationArgument( metadata[ index ],
+                                                              args ) )
+      }
+      return creationArguments
+    }
+    else {
+      return args
+    }
+  }
+
+  private resolveCreationArgument ( target: any,
+                                    args: any[] ): any
+  {
+    const type = typeof target
+    if( type === 'function' && target.__tsdi__ ) {
+      if( this._registeredDependencies[ target.__tsdi__.key ] ) {
+        return this.create( target )
+      }
+    }
+    let resolved = DependencyContainer.resolveArgument( target,
+                                                        args )
+    if( resolved ) return resolved
+    if( type === 'function' && target.__tsdi__ ) {
+      const instance = this.abstract( target )
+                           .firstOrDefault()
+      if( instance ) return instance
+    }
+    return null
   }
 
   public resolve<TDependency extends object> ( dependency: TDependency ): TDependency
   {
+    if( !dependency ) {
+      throw new Error( MissingArgumentError( 'dependency',
+                                             'DependencyContainer::resolve' ) )
+    }
+    if( typeof dependency !== 'object' ) {
+      throw new Error( InvalidArgumentError( 'dependency',
+                                             'of type Object',
+                                             'DependencyContainer::resolve' ) )
+    }
+    const creator: DependencyCreator<TDependency> = <any>dependency.constructor
+    this.verifyMetadata( creator )
+    if( !this._registeredDependencies[ creator.__tsdi__.key ] ) {
+      this._registeredDependencies[ creator.__tsdi__.key ] = {
+        dependency: creator,
+      }
+    }
+    if( creator.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton ) {
+      this._singletonInstances[ creator.__tsdi__.key ] = dependency
+    }
+    else if( creator.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Scoped
+             && this._currentScope ) {
+      this._scopedInstances[ creator.__tsdi__.key ] = dependency
+    }
     return dependency
   }
 
-  public query (): DependencyQuery<any>
+  public query ( ...args: any[] ): DependencyQuery<any>
   {
+    if( !Array.isArray( args ) ) {
+      throw new Error( InvalidArgumentError( 'args',
+                                             'of type Array',
+                                             'DependencyContainer::query' ) )
+    }
+    const dependencies: DependencyCreator<any>[] = []
+    for( const key of Object.keys( this._registeredDependencies ) ) {
+      dependencies.push( this._registeredDependencies[ key ].dependency )
+    }
     return new DependencyQuery( this,
-                                [],
-                                [] )
+                                dependencies,
+                                args )
+  }
+
+  public useScope ( scope: string ): void
+  {
+    if( !scope ) {
+      throw new Error( MissingArgumentError( 'scope',
+                                             'DependencyContainer::useScope' ) )
+    }
+    if( typeof scope !== 'string' ) {
+      throw new Error( InvalidArgumentError( 'scope',
+                                             'of type String',
+                                             'DependencyContainer::useScope' ) )
+    }
+    if( this._currentScope ) {
+      if( this._currentScope === scope ) return
+      throw new Error( '[@dvolper/tsdi]: There is already a scope in use: ' + this._currentScope )
+    }
+    this._currentScope = scope
+  }
+
+  public exitScope ( scope: string ): void
+  {
+    if( !scope ) {
+      throw new Error( MissingArgumentError( 'scope',
+                                             'DependencyContainer::exitScope' ) )
+    }
+    if( typeof scope !== 'string' ) {
+      throw new Error( InvalidArgumentError( 'scope',
+                                             'of type String',
+                                             'DependencyContainer::exitScope' ) )
+    }
+    if( this._currentScope !== scope ) return
+    for( const key of Object.keys( this._scopedInstances ) ) {
+      delete this._scopedInstances[ key ]
+    }
+    delete this._currentScope
+  }
+
+  private static resolveArgument ( target: any,
+                                   context: any[] ): any
+  {
+    if( !context || !context.length ) return null
+    const type = typeof target
+    for( let index = 0; index < context.length; index++ ) {
+      const type2 = typeof context[ index ]
+      if( type === type2
+          || type2 === 'number' && target === Number
+          || type2 === 'string' && target === String
+          || type === 'function' && context[ index ] instanceof target ) {
+        const value = context[ index ]
+        context.splice( index,
+                        1 )
+        return value
+      }
+    }
+    return null
+  }
+
+  public static isPrototypeAssignableFrom ( prototype: any,
+                                            type: TypeReference ): boolean
+  {
+    if( prototype instanceof type ) return true
+    if( prototype.prototype ) {
+      return DependencyContainer.isPrototypeAssignableFrom( prototype.prototype,
+                                                            type )
+    }
+    return false
   }
 }
