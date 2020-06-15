@@ -9,6 +9,7 @@ import {DependencyCreator}                          from '../lib/dependency-crea
 import {SingletonTestService}                       from './singleton-test-service'
 import {ScopedTestService}                          from './scoped-test-service'
 import {ConstructorMetadataTestService}             from './constructor-metadata-test-service'
+import {PropertyMetadataTestService}                from './property-metadata-test-service'
 
 describe( 'DependencyContainer',
           () => {
@@ -75,6 +76,16 @@ describe( 'DependencyContainer',
                   dc.add( TestService )
                   const instance = dc.create( ConstructorMetadataTestService )
                   expect( instance instanceof ConstructorMetadataTestService )
+                    .toBe( true )
+                  const input = 'test-input'
+                  expect( instance.echo( input ) )
+                    .toBe( input )
+                } )
+            it( 'Resolve property with dependencies',
+                () => {
+                  dc.add( TestService )
+                  const instance = dc.create( PropertyMetadataTestService )
+                  expect( instance instanceof PropertyMetadataTestService )
                     .toBe( true )
                   const input = 'test-input'
                   expect( instance.echo( input ) )
