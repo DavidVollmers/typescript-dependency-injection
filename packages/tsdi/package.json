@@ -1,17 +1,25 @@
 {
   "name": "@dvolper/tsdi",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "TypeScript Dependency Injection",
-  "author": "David Vollmers <david@vollmers.org>",
+  "author": "David Vollmers <tsdi@dvolper.xyz>",
   "homepage": "https://github.com/DavidVollmers/typescript-dependency-injection",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "lib",
+    "index.ts",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "prepublishOnly": "npm test && npm version patch --no-git-tag-version"
   },
   "peerDependencies": {
     "reflect-metadata": "^0.1.13"

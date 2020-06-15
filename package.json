@@ -2,7 +2,7 @@
   "name": "@dvolper/typescript-dependency-injection",
   "version": "0.1.0",
   "description": "TypeScript Dependency Injection",
-  "author": "David Vollmers <david@vollmers.org>",
+  "author": "David Vollmers <tsdi@dvolper.xyz>",
   "homepage": "https://github.com/DavidVollmers/typescript-dependency-injection",
   "private": true,
   "dependencies": {

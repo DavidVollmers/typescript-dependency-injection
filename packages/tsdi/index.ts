@@ -1,3 +1,4 @@
+export {Resolve}                from './lib/decorators/resolve'
 export {Scoped}                 from './lib/decorators/scoped'
 export {Singleton}              from './lib/decorators/singleton'
 export {DependencyKeyGenerator} from './lib/extensions/dependency-key-generator'

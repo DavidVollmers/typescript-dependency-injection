@@ -1,7 +1,7 @@
 # `@dvolper/tsdi`
 # TypeScript Dependency Injection
 
-Lightweight, extandable and easy to use Dependency Injection for TypeScript.
+Lightweight, extendable and easy to use Dependency Injection for TypeScript.
 
 ## Usage
 
@@ -26,7 +26,8 @@ Update your tsconfig.json
 }
 ```
 
-After that there are different ways on how to initialize the Dependency Injection
+After that there are different ways on how to initialize the Dependency Injection. Notice that you always need an `
+import 'reflect-metadata'` in your entry file.
 
 ### VueJS Initialization
 
@@ -37,6 +38,7 @@ npm i @dvolper/tsdi-vue
 
 Then update your main.ts
 ```ts
+import 'reflect-metadata'
 import Vue from 'vue'
 import VueTypeScriptDependencyInjection from '@dvolper/tsdi-vue'
 
@@ -69,11 +71,8 @@ Whenever a dependency will be created or resolved using [`DependencyContainer::c
 
 This also counts for constructor arguments of an injectable class:
 
-Service `FooService` will be used as global dependency
+Service `FooService` will be used as dependency
 ```ts
-import {Global} from '@dvolper/tsdi'
-
-@Global
 export class FooService {
 
     public foo(): void {
@@ -85,11 +84,12 @@ export class FooService {
 
 And then `FooService` will be required by `BarService`
 ```ts
+import {Resolve} from '@dvolper/tsdi'
 import {FooService} from './foo-service'
 
+@Resolve
 export class BarService {
     
-    // No @Resolve needed
     public  constructor(private readonly _fooService: FooService) {
 
     }
@@ -105,6 +105,7 @@ export class BarService {
 
 Executing the following...
 ```ts
+import 'reflect-metadata'
 import {DependencyContainer} from '@dvolper/tsdi'
 import {BarService} from './services/bar-service'
 
@@ -126,14 +127,12 @@ bar
 ### Manual Initialization
 
 ```ts
+import 'reflect-metadata'
 import {DependencyContainer} from '@dvolper/tsdi'
 import {FooService} from './services/foo-service'
 
 // create a new dependency container
 const dc = new DependencyContainer
-
-// register local dependencies for later injection (if not marked @Global)
-dc.add( FooService )
 
 // create an instance of the dependency (does not need to be registered)
 const instance = dc.create( FooService )
@@ -184,7 +183,7 @@ dc.add( AbstractFooService, FooService )
 const query = dc.abstract( AbstractFooService )
 
 // lazy load an instance which implements the required abstraction
-const instance = query.single
+const instance = query.single()
 ```
 
 You can read more about Abstract Queries [here]().
