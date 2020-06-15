@@ -222,8 +222,8 @@ export class DependencyContainer
         return this.create( target )
       }
     }
-    let resolved = DependencyContainer.resolveTarget( target,
-                                                      args )
+    let resolved = DependencyContainer.resolveTargetByContext( target,
+                                                               args )
     if( resolved ) return resolved
     if( type === 'function' && target.__tsdi__ ) {
       const instance = this.abstract( target )
@@ -264,10 +264,10 @@ export class DependencyContainer
         Object.defineProperty( dependency,
                                propertyKey,
                                {
-                                 get: ( _ => {
+                                 get: ( target => {
                                    let instance: any = null
                                    return () => {
-                                     if( !instance ) instance = this.create( _ )
+                                     if( !instance ) instance = this.create( target )
                                      return instance
                                    }
                                  } )( propertyType ),
@@ -345,8 +345,8 @@ export class DependencyContainer
     }
   }
 
-  private static resolveTarget ( target: any,
-                                 context: any[] ): any
+  private static resolveTargetByContext ( target: any,
+                                          context?: any[] ): any
   {
     if( !context || !context.length ) return null
     const type = typeof target

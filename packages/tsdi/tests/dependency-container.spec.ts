@@ -8,6 +8,7 @@ import {TestKeyGenerator}                           from './test-key-generator'
 import {DependencyCreator}                          from '../lib/dependency-creator'
 import {SingletonTestService}                       from './singleton-test-service'
 import {ScopedTestService}                          from './scoped-test-service'
+import {ConstructorMetadataTestService}             from './constructor-metadata-test-service'
 
 describe( 'DependencyContainer',
           () => {
@@ -58,6 +59,26 @@ describe( 'DependencyContainer',
                     .toBe( true )
                   expect( instance.constructorEcho )
                     .toBe( 'test' )
+                } )
+            it( 'Resolve constructor with unregistered dependencies',
+                () => {
+                  const instance = dc.create( ConstructorMetadataTestService )
+                  expect( instance instanceof ConstructorMetadataTestService )
+                    .toBe( true )
+                  expect( () => {
+                    instance.echo( 'WILL BE IGNORED' )
+                  } )
+                    .toThrow( 'Cannot read property \'echo\' of null' )
+                } )
+            it( 'Resolve constructor with registered dependencies',
+                () => {
+                  dc.add( TestService )
+                  const instance = dc.create( ConstructorMetadataTestService )
+                  expect( instance instanceof ConstructorMetadataTestService )
+                    .toBe( true )
+                  const input = 'test-input'
+                  expect( instance.echo( input ) )
+                    .toBe( input )
                 } )
           } )
 describe( 'DependencyContainer Abstractions',
