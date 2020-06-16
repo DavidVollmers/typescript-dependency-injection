@@ -1,3 +1,4 @@
+export {Injectable}                from './lib/decorators/injectable'
 export {Resolve}                   from './lib/decorators/resolve'
 export {Scoped}                    from './lib/decorators/scoped'
 export {Singleton}                 from './lib/decorators/singleton'

@@ -81,6 +81,12 @@ This also counts for constructor arguments of an injectable class:
 
 Service `FooService` will be used as dependency
 ```ts
+import {Injectable} from '@dvolper/tsdi'
+
+// If you do not need @Resolve you should atleast use @Injectable
+// Or you can do dc.add(FooService) when initializing your DependencyContainer
+// Without adding or marking a class, it cannot be resolved as a dependency...
+@Injectable
 export class FooService {
 
     public foo(): void {
