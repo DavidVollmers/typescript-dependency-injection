@@ -1,7 +1,16 @@
 {
   "name": "@dvolper/tsdi",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "TypeScript Dependency Injection",
+  "keywords": [
+    "dependency-injection",
+    "dependencies",
+    "dependency",
+    "typescript",
+    "ts",
+    "vue",
+    "vuejs"
+  ],
   "author": "David Vollmers <tsdi@dvolper.xyz>",
   "homepage": "https://github.com/DavidVollmers/typescript-dependency-injection",
   "license": "MIT",
