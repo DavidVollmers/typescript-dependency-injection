@@ -15,7 +15,7 @@ interface RegisteredDependency<TDependency extends object>
 
 export class DependencyContainer
 {
-  private static readonly _globalInstance: DependencyContainer = new DependencyContainer
+  private static readonly _globalInstance: DependencyContainer = new DependencyContainer( 'global' )
   private readonly _registeredDependencies: {
     [ key: string ]: RegisteredDependency<any>
   }                                                            = {}
@@ -33,6 +33,12 @@ export class DependencyContainer
   public static get global (): DependencyContainer
   {
     return this._globalInstance
+  }
+  
+  public constructor( scope?: string ) {
+    if( scope ) {
+      this.useScope( scope )
+    }
   }
 
   private verifyMetadata ( target: TypeReference ): void
@@ -64,6 +70,9 @@ export class DependencyContainer
                                                                                        implementation?: DependencyCreator<TDependency> | DependencyProvider<TDependency>,
                                                                                        provider?: DependencyProvider<TDependency> ): DependencyContainer
   {
+    if( this._currentScope !== 'global' ) {
+      DependencyContainer._globalInstance.add( abstraction, <any>implementation, provider )
+    }
     let abstr: AbstractDependency<TAbstraction>
     let dependency: DependencyCreator<TDependency>
     if( provider && typeof provider !== 'function' ) {
@@ -115,6 +124,7 @@ export class DependencyContainer
     this.verifyMetadata( dependency )
     if( abstr ) this.verifyMetadata( abstr )
     if( this._registeredDependencies[ dependency.__tsdi__.key ] ) {
+      if( this._currentScope === 'global' ) return this
       throw new Error( 'Cannot register dependency with same key twice: ' + dependency.__tsdi__.key )
     }
     this._registeredDependencies[ dependency.__tsdi__.key ] = {
@@ -310,6 +320,9 @@ export class DependencyContainer
                                              'of type String',
                                              'DependencyContainer::useScope' ) )
     }
+    if( scope === 'global' && DependencyContainer._globalInstance ) {
+      throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
+    }
     if( this._currentScope ) {
       if( this._currentScope === scope ) return
       throw new Error( '[@dvolper/tsdi]: There is already a scope in use: ' + this._currentScope )
@@ -328,6 +341,9 @@ export class DependencyContainer
                                              'of type String',
                                              'DependencyContainer::exitScope' ) )
     }
+    if( scope === 'global' ) {
+      throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
+    }
     if( this._currentScope !== scope ) return
     this.disposeCurrentScope()
   }
@@ -342,6 +358,7 @@ export class DependencyContainer
 
   public dispose (): void
   {
+    if( this._currentScope === 'global' ) throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
     this.disposeCurrentScope()
     for( const key of Object.keys( this._singletonInstances ) ) {
       delete this._singletonInstances[ key ]
