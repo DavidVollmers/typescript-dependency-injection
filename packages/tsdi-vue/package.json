@@ -1,6 +1,6 @@
 {
   "name": "@dvolper/tsdi-vue",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "TypeScript Dependency Injection for VueJS",
   "author": "David Vollmers <tsdi@dvolper.xyz>",
   "homepage": "https://github.com/DavidVollmers/typescript-dependency-injection",
@@ -22,10 +22,10 @@
     "prepublishOnly": "npm test && npm version patch --no-git-tag-version"
   },
   "peerDependencies": {
-    "@dvolper/tsdi": "^0.1.5"
+    "@dvolper/tsdi": "^0.2.1"
   },
   "devDependencies": {
-    "@dvolper/tsdi": "^0.1.5",
+    "@dvolper/tsdi": "^0.2.1",
     "@types/jest": "25.2.3",
     "jest": "26.0.1",
     "ts-jest": "26.1.0",

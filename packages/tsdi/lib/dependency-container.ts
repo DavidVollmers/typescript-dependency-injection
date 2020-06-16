@@ -6,6 +6,7 @@ import {DependencyQuery}                            from './collections/dependen
 import {DependencyKeyGenerator}                     from './extensions/dependency-key-generator'
 import {TypeReference}                              from './type-reference'
 import {DependencyInjectionBehaviour}               from './dependency-metadata'
+import {ResolveExtension} from './extensions/resolve-extension'
 
 interface RegisteredDependency<TDependency extends object>
 {
@@ -289,6 +290,10 @@ export class DependencyContainer
                                  } )( propertyType ),
                                } )
       }
+    }
+    const extensions = this.abstract<ResolveExtension>( ResolveExtension )
+    for( const extension of extensions ) {
+      dependency = extension.resolve( this, dependency )
     }
     return dependency
   }

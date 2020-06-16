@@ -1,6 +1,4 @@
 import {TypeReference}             from '../type-reference'
-import {DependencyContainer}       from '../dependency-container'
-import {ResolveDecoratorExtension} from '../extensions/resolve-decorator-extension'
 
 export const Resolve = ( target: any,
                          propertyKey?: string ): void => {
@@ -14,11 +12,5 @@ export const Resolve = ( target: any,
                                                                            target,
                                                                            propertyKey )
     type.__tsdi__.resolve.properties[ propertyKey ] = metadata
-    const extensions                                = DependencyContainer.global.abstract<ResolveDecoratorExtension>( ResolveDecoratorExtension )
-    for( const extension of extensions ) {
-      extension.resolve( type,
-                         propertyKey,
-                         metadata )
-    }
   }
 }

@@ -1,7 +1,7 @@
-import {TypeReference}                                    from '../type-reference'
 import {DependencyInjectionBehaviour, DependencyMetadata} from '../dependency-metadata'
+import {DependencyContainer} from '../dependency-container'
 
-export abstract class ResolveDecoratorExtension
+export abstract class ResolveExtension
 {
   public static get __tsdi__ (): DependencyMetadata
   {
@@ -11,7 +11,5 @@ export abstract class ResolveDecoratorExtension
     }
   }
 
-  public abstract resolve ( target: TypeReference,
-                            propertyKey: string,
-                            metadata?: any ): void
+  public abstract resolve<TDependency extends object> ( dc: DependencyContainer, dependency: TDependency ): TDependency
 }
