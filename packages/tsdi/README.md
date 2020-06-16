@@ -64,7 +64,7 @@ import {FooService} from '@/services/foo-service'
 export default class FooComponent extends Vue {
   
     @Resolve
-    private readonly _fooService
+    private readonly _fooService: FooService
     
     // Optional
     public beforeMount(): void {
@@ -104,7 +104,7 @@ import {FooService} from './foo-service'
 @Resolve
 export class BarService {
     
-    public  constructor(private readonly _fooService: FooService) {
+    public  constructor( private readonly _fooService: FooService ) {
 
     }
 
