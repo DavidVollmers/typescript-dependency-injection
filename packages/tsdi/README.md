@@ -40,9 +40,17 @@ Then update your main.ts
 ```ts
 import 'reflect-metadata'
 import Vue from 'vue'
-import VueTypeScriptDependencyInjection from '@dvolper/tsdi-vue'
+import TypeScriptDependencyInjection from '@dvolper/tsdi-vue'
+import {Store} from 'vuex'
+import store from './store'
 
-Vue.use( VueTypeScriptDependencyInjection )
+Vue.use( TypeScriptDependencyInjection, {
+    // Optional
+    builder: dc => {
+        // Make the Vuex Store injectable
+        dc.add( Store, () => store )
+    }
+} )
 ```
 
 Then inside any component you can use the following setup

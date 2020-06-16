@@ -153,6 +153,12 @@ export class DependencyContainer
         dependencies.push( dependency )
       }
     }
+    if( abstraction.__tsdi__ && abstraction.__tsdi__.key && this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
+      for( const key of this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
+        if ( dependencies.filter( d => d.__tsdi__ && d.__tsdi__.key === key ).length ) continue
+        dependencies.push( this._registeredDependencies[ key ].dependency )
+      }
+    }
     return new DependencyQuery( this,
                                 dependencies,
                                 args )
