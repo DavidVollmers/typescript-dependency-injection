@@ -1,6 +1,6 @@
 # TypeScript Dependency Injection
 
-Lightweight, extandable and easy to use Dependency Injection for TypeScript
+Lightweight, extendable and easy to use Dependency Injection for TypeScript
 
 ```bash
 npm i @dvolper/tsdi
