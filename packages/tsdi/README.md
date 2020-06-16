@@ -193,8 +193,8 @@ dc.add( AbstractFooService, FooService )
 
 ...you can resolve dependencies by that abstraction:
 ```ts
-// query the DependencyContainer by an abstraction
-const query = dc.abstract( AbstractFooService )
+// query the DependencyContainer by an abstraction (the <AbstractFooService> type hint is needed or else instance will be of type Object)
+const query = dc.abstract<AbstractFooService>( AbstractFooService )
 
 // lazy load an instance which implements the required abstraction
 const instance = query.single()
