@@ -193,8 +193,8 @@ export class DependencyContainer
     }
     if( dependency.__tsdi__ ) {
       if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
-          && this._singletonInstances[ dependency.__tsdi__.key ] ) {
-        return this._singletonInstances[ dependency.__tsdi__.key ]
+          && DependencyContainer._globalInstance._singletonInstances[ dependency.__tsdi__.key ] ) {
+        return DependencyContainer._globalInstance._singletonInstances[ dependency.__tsdi__.key ]
       }
       if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Scoped
           && this._currentScope && this._scopedInstances[ dependency.__tsdi__.key ] ) {
@@ -268,7 +268,7 @@ export class DependencyContainer
       }
     }
     if( creator.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton ) {
-      this._singletonInstances[ creator.__tsdi__.key ] = dependency
+      DependencyContainer._globalInstance._singletonInstances[ creator.__tsdi__.key ] = dependency
     }
     else if( creator.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Scoped
              && this._currentScope ) {

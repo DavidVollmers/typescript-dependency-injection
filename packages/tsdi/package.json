@@ -1,6 +1,6 @@
 {
   "name": "@dvolper/tsdi",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "TypeScript Dependency Injection",
   "author": "David Vollmers <tsdi@dvolper.xyz>",
   "homepage": "https://github.com/DavidVollmers/typescript-dependency-injection",
