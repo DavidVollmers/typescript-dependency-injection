@@ -60,6 +60,9 @@ export class DependencyContainer
     }
     const keyGen = this.create( DependencyKeyGenerator )
     keyGen.verify( target )
+    if( !target.__tsdi__.key ) {
+      throw new Error( '[@dvolper/tsdi]: Each dependency must be verified by a key. (TSDI Key is missing)' )
+    }
   }
 
   public add<TDependency extends object> ( dependency: DependencyCreator<TDependency>,
@@ -123,7 +126,7 @@ export class DependencyContainer
       dependency = <DependencyCreator<TDependency>>abstraction
     }
     this.verifyMetadata( dependency )
-    if( abstr ) this.verifyMetadata( abstr )
+    if( abstr && abstr !== dependency ) this.verifyMetadata( abstr )
     if( this._registeredDependencies[ dependency.__tsdi__.key ] ) {
       if( this._currentScope === 'global' ) return this
       throw new Error( 'Cannot register dependency with same key twice: ' + dependency.__tsdi__.key )
@@ -132,7 +135,7 @@ export class DependencyContainer
       dependency,
       provider,
     }
-    if( abstr ) {
+    if( abstr && abstr !== dependency ) {
       if( !this._abstractionMapping[ abstr.__tsdi__.key ] ) this._abstractionMapping[ abstr.__tsdi__.key ] = []
       this._abstractionMapping[ abstr.__tsdi__.key ].push( dependency.__tsdi__.key )
     }
