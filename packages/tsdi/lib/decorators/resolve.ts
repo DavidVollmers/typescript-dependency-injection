@@ -1,4 +1,4 @@
-import {TypeReference}             from '../type-reference'
+import {TypeReference} from '../type-reference'
 
 export const Resolve = ( target: any,
                          propertyKey?: string ): void => {

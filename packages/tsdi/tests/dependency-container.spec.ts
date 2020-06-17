@@ -118,14 +118,14 @@ describe( 'DependencyContainer Decorators',
                 () => {
                   const input1    = 'input-1'
                   const instance1 = dc.serve( TestService,
-                                               input1 )
+                                              input1 )
                   expect( instance1 instanceof TestService )
                     .toBe( true )
                   expect( instance1.constructorEcho )
                     .toBe( input1 )
                   const input2    = 'input-2'
                   const instance2 = dc.serve( TestService,
-                                               input2 )
+                                              input2 )
                   expect( instance2 instanceof TestService )
                     .toBe( true )
                   expect( instance2.constructorEcho )
@@ -135,13 +135,13 @@ describe( 'DependencyContainer Decorators',
                 () => {
                   const input1    = 'input-1'
                   const instance1 = dc.serve( SingletonTestService,
-                                               input1 )
+                                              input1 )
                   expect( instance1 instanceof SingletonTestService )
                     .toBe( true )
                   expect( instance1.constructorEcho )
                     .toBe( input1 )
                   const instance2 = dc.serve( SingletonTestService,
-                                               'WILL BE IGNORED' )
+                                              'WILL BE IGNORED' )
                   expect( instance2 instanceof SingletonTestService )
                     .toBe( true )
                   expect( instance2.constructorEcho )
@@ -151,14 +151,14 @@ describe( 'DependencyContainer Decorators',
                 () => {
                   const input1    = 'input-1'
                   const instance1 = dc.serve( ScopedTestService,
-                                               input1 )
+                                              input1 )
                   expect( instance1 instanceof ScopedTestService )
                     .toBe( true )
                   expect( instance1.constructorEcho )
                     .toBe( input1 )
                   const input2    = 'input-2'
                   const instance2 = dc.serve( ScopedTestService,
-                                               input2 )
+                                              input2 )
                   expect( instance2 instanceof ScopedTestService )
                     .toBe( true )
                   expect( instance2.constructorEcho )
@@ -170,13 +170,13 @@ describe( 'DependencyContainer Decorators',
                   dc.useScope( scope )
                   const input1    = 'input-1'
                   const instance1 = dc.serve( ScopedTestService,
-                                               input1 )
+                                              input1 )
                   expect( instance1 instanceof ScopedTestService )
                     .toBe( true )
                   expect( instance1.constructorEcho )
                     .toBe( input1 )
                   const instance2 = dc.serve( ScopedTestService,
-                                               'WILL BE IGNORED' )
+                                              'WILL BE IGNORED' )
                   expect( instance2 instanceof ScopedTestService )
                     .toBe( true )
                   expect( instance2.constructorEcho )

@@ -6,7 +6,7 @@ import {DependencyQuery}                            from './collections/dependen
 import {DependencyKeyGenerator}                     from './extensions/dependency-key-generator'
 import {TypeReference}                              from './type-reference'
 import {DependencyInjectionBehaviour}               from './dependency-metadata'
-import {ResolveExtension} from './extensions/resolve-extension'
+import {ResolveExtension}                           from './extensions/resolve-extension'
 
 interface RegisteredDependency<TDependency extends object>
 {
@@ -41,7 +41,7 @@ export class DependencyContainer
    * Every dependency added to any DependencyContainer instance will also be cached globally.
    * This means whenever you do not have access to a specific DependencyContainer instance you can try resolving dependencies via
    * `DependencyContainer.global.create` or `DependencyContainer.global.resolve`.
-   * 
+   *
    * @returns The global DependencyContainer instance
    */
   public static get global (): DependencyContainer
@@ -52,7 +52,8 @@ export class DependencyContainer
   /**
    * @param scope - If specified the instance will directly use the specific scope. (See `DependencyContainer::useScope`)
    */
-  public constructor( scope?: string ) {
+  public constructor ( scope?: string )
+  {
     if( scope ) {
       this.useScope( scope )
     }
@@ -60,7 +61,7 @@ export class DependencyContainer
 
   /**
    * Adds a dependency to the DependencyContainer cache and marks it as `@Injectable`.
-   * 
+   *
    * @param dependency - The dependency to be injected
    * @param provider - Optional dependency provider callback (Can be used to override the dependency creation behaviour)
    * @returns The DependencyContainer instance itself (for chaining .add calls)
@@ -70,7 +71,7 @@ export class DependencyContainer
   /**
    * Adds a dependency as an implementation of an abstraction to the DependencyContainer cache and marks it as `@Injectable`.
    * When mapping a dependency to an abstraction it is possible to query it based on the abstraction later on. (See `DependencyContainer::abstract`)
-   * 
+   *
    * @param abstraction - The abstraction of the dependency
    * @param implementation - The implementation of the specified abstraction
    * @param provider - Optional dependency provider callback (Can be used to override the dependency creation behaviour)
@@ -84,7 +85,9 @@ export class DependencyContainer
                                                                                        provider?: DependencyProvider<TDependency> ): DependencyContainer
   {
     if( this._currentScope !== 'global' ) {
-      DependencyContainer._globalInstance.add( abstraction, <any>implementation, provider )
+      DependencyContainer._globalInstance.add( abstraction,
+                                               <any>implementation,
+                                               provider )
     }
     let abstr: AbstractDependency<TAbstraction>
     let dependency: DependencyCreator<TDependency>
@@ -153,7 +156,7 @@ export class DependencyContainer
 
   /**
    * Queries the DependencyContainer cache based on a specified abstraction.
-   * 
+   *
    * @param abstraction - The abstraction which will be used to query the dependency cache
    * @param args - Optional arguments used to create dependency instances later on (See `DependencyContainer::serve`)
    * @returns The DependencyQuery containing all cached implementations of the specified abstraction (See `DependencyQuery`)
@@ -185,7 +188,7 @@ export class DependencyContainer
     }
     if( abstraction.__tsdi__ && abstraction.__tsdi__.key && this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
       for( const key of this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
-        if ( dependencies.filter( d => d.__tsdi__ && d.__tsdi__.key === key ).length ) continue
+        if( dependencies.filter( d => d.__tsdi__ && d.__tsdi__.key === key ).length ) continue
         dependencies.push( this._registeredDependencies[ key ].dependency )
       }
     }
@@ -196,33 +199,33 @@ export class DependencyContainer
 
   /**
    * Serves a resolved instance of the specified dependency. (See `DependencyContainer::resolve`)
-   * 
+   *
    * @param dependency - The specific dependency for which an instance is required
    * @param args - Optional arguments used to create the dependency instance
    * @returns The resolved instance
    * @remarks
    * The constructor arguments of a required dependency will be resolved in the following manner when creating an instance:
-   * 
+   *
    * If no reflection metadata is emitted for the required dependency (No decorator used)
-   * 
+   *
    *  => Only the optional arguments passed to `DependencyContainer::serve` will be used (No type checking possible)
-   *  
+   *
    * Else, the reflection metadata is checked first...
-   * 
+   *
    * If the reflection of an argument is a known dependency (in the current DependencyContainer cache)
-   * 
+   *
    *  => The known dependency will be served
-   *  
+   *
    * If the argument for the same index in the optional arguments passed to `DependencyContainer::serve` matches the type of the reflection
-   * 
+   *
    *  => Use the optional argument
-   *  
+   *
    * If the reflection of an argument is a known abstraction of a dependency (in the current DependencyContainer cache)
-   * 
+   *
    *  => The first found implementation of the known abstraction will be served
-   *  
+   *
    * Else
-   * 
+   *
    *  => `null` will be served (Different to when no reflection metadata is emitted and no optional arguments are passed => `undefined`)
    */
   public serve<TDependency extends object> ( dependency: DependencyCreator<TDependency>,
@@ -264,7 +267,7 @@ export class DependencyContainer
 
   /**
    * Resolves an instance of a dependency.
-   * 
+   *
    * @param dependency - The instance to be resolved
    * @returns The resolved instance
    * @remarks
@@ -273,7 +276,7 @@ export class DependencyContainer
    * (See `ResolveExtension`)
    * ```ts
    * import {DependencyContainer, ResolveExtension} from '@dvolper/tsdi'
-   * 
+   *
    * class CustomResolveExtension extends ResolveExtension {
    *     public resolve<TDependency extends object> ( dc: DependencyContainer, dependency: TDependency ): TDependency
    *     {
@@ -281,10 +284,10 @@ export class DependencyContainer
    *         return dependency
    *     }
    * }
-   * 
+   *
    * const dc = new DependencyContainer
    * dc.add( CustomResolveExtension )
-   * 
+   *
    * // Whenever .serve or .resolve is called on the extended DependencyContainer the CustomResolveExtension will be triggered.
    * const instance = dc.serve( ... )
    * ```
@@ -293,12 +296,12 @@ export class DependencyContainer
   {
     if( !dependency ) {
       throw new Error( MissingArgumentError( 'dependency',
-          'DependencyContainer::resolve' ) )
+                                             'DependencyContainer::resolve' ) )
     }
     if( typeof dependency !== 'object' ) {
       throw new Error( InvalidArgumentError( 'dependency',
-          'of type Object',
-          'DependencyContainer::resolve' ) )
+                                             'of type Object',
+                                             'DependencyContainer::resolve' ) )
     }
     const creator: DependencyCreator<TDependency> = <any>dependency.constructor
     this.verifyMetadata( creator )
@@ -311,28 +314,29 @@ export class DependencyContainer
       DependencyContainer._globalInstance._singletonInstances[ creator.__tsdi__.key ] = dependency
     }
     else if( creator.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Scoped
-        && this._currentScope ) {
+             && this._currentScope ) {
       this._scopedInstances[ creator.__tsdi__.key ] = dependency
     }
     if( creator.__tsdi__.resolve && creator.__tsdi__.resolve.properties ) {
       for( const propertyKey of Object.keys( creator.__tsdi__.resolve.properties ) ) {
         const propertyType = creator.__tsdi__.resolve.properties[ propertyKey ]
         Object.defineProperty( dependency,
-            propertyKey,
-            {
-              get: ( target => {
-                let instance: any = null
-                return () => {
-                  if( !instance ) instance = this.serve( target )
-                  return instance
-                }
-              } )( propertyType ),
-            } )
+                               propertyKey,
+                               {
+                                 get: ( target => {
+                                   let instance: any = null
+                                   return () => {
+                                     if( !instance ) instance = this.serve( target )
+                                     return instance
+                                   }
+                                 } )( propertyType ),
+                               } )
       }
     }
     const extensions = this.abstract<ResolveExtension>( ResolveExtension )
     for( const extension of extensions ) {
-      dependency = extension.resolve( this, dependency )
+      dependency = extension.resolve( this,
+                                      dependency )
     }
     return dependency
   }
@@ -347,28 +351,28 @@ export class DependencyContainer
   {
     if( !Array.isArray( args ) ) {
       throw new Error( InvalidArgumentError( 'args',
-          'of type Array',
-          'DependencyContainer::query' ) )
+                                             'of type Array',
+                                             'DependencyContainer::query' ) )
     }
     const dependencies: DependencyCreator<any>[] = []
     for( const key of Object.keys( this._registeredDependencies ) ) {
       dependencies.push( this._registeredDependencies[ key ].dependency )
     }
     return new DependencyQuery( this,
-        dependencies,
-        args )
+                                dependencies,
+                                args )
   }
 
   public useScope ( scope: string ): void
   {
     if( !scope ) {
       throw new Error( MissingArgumentError( 'scope',
-          'DependencyContainer::useScope' ) )
+                                             'DependencyContainer::useScope' ) )
     }
     if( typeof scope !== 'string' ) {
       throw new Error( InvalidArgumentError( 'scope',
-          'of type String',
-          'DependencyContainer::useScope' ) )
+                                             'of type String',
+                                             'DependencyContainer::useScope' ) )
     }
     if( scope === 'global' && DependencyContainer._globalInstance ) {
       throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
@@ -384,12 +388,12 @@ export class DependencyContainer
   {
     if( !scope ) {
       throw new Error( MissingArgumentError( 'scope',
-          'DependencyContainer::exitScope' ) )
+                                             'DependencyContainer::exitScope' ) )
     }
     if( typeof scope !== 'string' ) {
       throw new Error( InvalidArgumentError( 'scope',
-          'of type String',
-          'DependencyContainer::exitScope' ) )
+                                             'of type String',
+                                             'DependencyContainer::exitScope' ) )
     }
     if( scope === 'global' ) {
       throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
@@ -414,7 +418,7 @@ export class DependencyContainer
   {
     if( target === DependencyKeyGenerator
         || DependencyContainer.isPrototypeAssignableFrom( target.prototype,
-            DependencyKeyGenerator ) ) {
+                                                          DependencyKeyGenerator ) ) {
       if( !target.__tsdi__
           || !target.__tsdi__.key ) {
         throw new Error( '[@dvolper/tsdi]: DependencyKeyGenerator must be self verified. (TSDI Key is missing)' )
@@ -437,12 +441,12 @@ export class DependencyContainer
                                                                  args: any[] ): any[]
   {
     const metadata = Reflect.getMetadata( 'design:paramtypes',
-        dependency )
+                                          dependency )
     if( metadata && metadata.length ) {
       const creationArguments: any[] = []
       for( let index = 0; index < metadata.length; index++ ) {
         creationArguments.push( this.resolveCreationArgument( metadata[ index ],
-            args ) )
+                                                              args ) )
       }
       return creationArguments
     }
@@ -461,11 +465,11 @@ export class DependencyContainer
       }
     }
     let resolved = DependencyContainer.resolveTargetByContext( target,
-        args )
+                                                               args )
     if( resolved ) return resolved
     if( type === 'function' && target.__tsdi__ ) {
       const instance = this.abstract( target )
-          .firstOrDefault()
+                           .firstOrDefault()
       if( instance ) return instance
     }
     return null

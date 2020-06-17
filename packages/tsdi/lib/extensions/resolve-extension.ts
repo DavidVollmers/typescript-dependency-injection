@@ -1,5 +1,5 @@
 import {DependencyInjectionBehaviour, DependencyMetadata} from '../dependency-metadata'
-import {DependencyContainer} from '../dependency-container'
+import {DependencyContainer}                              from '../dependency-container'
 
 export abstract class ResolveExtension
 {
@@ -11,5 +11,6 @@ export abstract class ResolveExtension
     }
   }
 
-  public abstract resolve<TDependency extends object> ( dc: DependencyContainer, dependency: TDependency ): TDependency
+  public abstract resolve<TDependency extends object> ( dc: DependencyContainer,
+                                                        dependency: TDependency ): TDependency
 }
