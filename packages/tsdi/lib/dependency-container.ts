@@ -269,7 +269,7 @@ export class DependencyContainer
    * @returns The resolved instance
    * @remarks
    * Only properties of an instance marked with `@Resolve` will be resolved.
-   * You can extend the default resolve behaviour of any DependencyContainer by adding a derivation of `ResolveExtension` ot it:
+   * You can extend the default resolve behaviour of any DependencyContainer by adding a derivation of `ResolveExtension` to it:
    * (See `ResolveExtension`)
    * ```ts
    * import {DependencyContainer, ResolveExtension} from '@dvolper/tsdi'
