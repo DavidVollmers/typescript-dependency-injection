@@ -188,6 +188,7 @@ import {FooService} from './services/foo-service'
 
 const dc = new DependencyContainer
 
+// Optional (Only needed if FooService does not "really" implement AbstractFooService, e.g. if it is a Mock)
 dc.add( AbstractFooService, FooService )
 ``` 
 
