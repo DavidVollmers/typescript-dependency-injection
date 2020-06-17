@@ -75,7 +75,7 @@ export default class FooComponent extends Vue {
 
 ### Dependencies for Dependencies
 
-Whenever a dependency will be created or resolved using [`DependencyContainer::create`]() or [`@Resolve`]() the dependencies of this dependency will automatically be resolved.
+Whenever a dependency will be created or resolved using [`DependencyContainer::serve`]() or [`@Resolve`]() the dependencies of this dependency will automatically be resolved.
 
 This also counts for constructor arguments of an injectable class:
 
@@ -127,7 +127,7 @@ import {BarService} from './services/bar-service'
 const dc = new DependencyContainer
 
 // create an instance of the registered dependency
-const barService = dc.create( BarService )
+const barService = dc.serve( BarService )
 
 barService.bar()
 ```
@@ -149,7 +149,7 @@ import {FooService} from './services/foo-service'
 const dc = new DependencyContainer
 
 // create an instance of the dependency (does not need to be registered)
-const instance = dc.create( FooService )
+const instance = dc.serve( FooService )
 ```
 
 ## Extended Usage
