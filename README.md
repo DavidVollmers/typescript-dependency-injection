@@ -75,7 +75,7 @@ export default class FooComponent extends Vue {
 
 ### Dependencies for Dependencies
 
-Whenever a dependency will be created or resolved using [`DependencyContainer::serve`](packages/tsdi/docs/classes/_dependency_container_.dependencycontainer.md#serve) or [`@Resolve`]() the dependencies of this dependency will automatically be resolved.
+Whenever a dependency will be created or resolved using [`DependencyContainer::serve`](packages/tsdi/docs/classes/_dependency_container_.dependencycontainer.md#serve) or [`@Resolve`](packages/tsdi/docs/modules/_decorators_resolve_.md#const-resolve) the dependencies of this dependency will automatically be resolved.
 
 This also counts for constructor arguments of an injectable class:
 
@@ -155,7 +155,7 @@ const instance = dc.serve( FooService )
 ## Extended Usage
 
 The Dependency Injection is far more powerful than what you have seen before.
-In the following you will see the core features explained but you can find a complete API documentation [here]().
+In the following you will see the core features explained but you can find a complete API documentation [here](packages/tsdi/docs/globals.md).
 
 ### Transient, Scoped and Singleton
 
@@ -167,14 +167,14 @@ The default injection behaviour. This means whenever an instance of the dependen
 
 #### Scoped
 
-All dependencies marked as [`@Scoped`]().
+All dependencies marked as [`@Scoped`](packages/tsdi/docs/modules/_decorators_scoped_.md#const-scoped).
 
-Per default this behaviour is the same as **Transient**. Only when using [`DependencyContainer::useScope`]() it will have an effect:
+Per default this behaviour is the same as **Transient**. Only when using [`DependencyContainer::useScope`](packages/tsdi/docs/classes/_dependency_container_.dependencycontainer.md#usescope) it will have an effect:
 Whenever an instance of the dependency is required, a new one **per new scope** will be served.
 
 #### Singleton
 
-All dependencies marked as [`@Singleton`]().
+All dependencies marked as [`@Singleton`](packages/tsdi/docs/modules/_decorators_singleton_.md#const-singleton).
 
 This means whenever an instance of the dependency is required, **the same one** will be served.
 
@@ -200,4 +200,4 @@ const query = dc.abstract<AbstractFooService>( AbstractFooService )
 const instance = query.single()
 ```
 
-You can read more about Abstract Queries [here]().
+You can read more about Abstract Queries [here](packages/tsdi/docs/classes/_dependency_container_.dependencycontainer.md#abstract).
