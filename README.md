@@ -75,7 +75,7 @@ export default class FooComponent extends Vue {
 
 ### Dependencies for Dependencies
 
-Whenever a dependency will be created or resolved using [`DependencyContainer::serve`]() or [`@Resolve`]() the dependencies of this dependency will automatically be resolved.
+Whenever a dependency will be created or resolved using [`DependencyContainer::serve`](packages/tsdi/docs/classes/_dependency_container_.dependencycontainer.md#serve) or [`@Resolve`]() the dependencies of this dependency will automatically be resolved.
 
 This also counts for constructor arguments of an injectable class:
 

@@ -17,7 +17,7 @@ interface RegisteredDependency<TDependency extends object>
 /**
  * Resembles the entry point for any dependency injection.
  * Each instance has its own dependency and instance cache.
- * Only dependencies marked with `@Singleton?` are globally unique.
+ * Only dependencies marked with `@Singleton` are globally unique.
  */
 export class DependencyContainer
 {
@@ -202,16 +202,27 @@ export class DependencyContainer
    * @returns The resolved instance
    * @remarks
    * The constructor arguments of a required dependency will be resolved in the following manner when creating an instance:
+   * 
    * If no reflection metadata is emitted for the required dependency (No decorator used)
+   * 
    *  => Only the optional arguments passed to `DependencyContainer::serve` will be used (No type checking possible)
+   *  
    * Else, the reflection metadata is checked first...
+   * 
    * If the reflection of an argument is a known dependency (in the current DependencyContainer cache)
+   * 
    *  => The known dependency will be served
+   *  
    * If the argument for the same index in the optional arguments passed to `DependencyContainer::serve` matches the type of the reflection
+   * 
    *  => Use the optional argument
+   *  
    * If the reflection of an argument is a known abstraction of a dependency (in the current DependencyContainer cache)
+   * 
    *  => The first found implementation of the known abstraction will be served
+   *  
    * Else
+   * 
    *  => `null` will be served (Different to when no reflection metadata is emitted and no optional arguments are passed => `undefined`)
    */
   public serve<TDependency extends object> ( dependency: DependencyCreator<TDependency>,

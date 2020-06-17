@@ -23,7 +23,7 @@
 
 • **dependency**: *[DependencyCreator](../modules/_dependency_creator_.md#dependencycreator)‹TDependency›*
 
-*Defined in [lib/dependency-container.ts:13](https://github.com/DavidVollmers/typescript-dependency-injection/blob/86fed67/packages/tsdi/lib/dependency-container.ts#L13)*
+*Defined in [lib/dependency-container.ts:13](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L13)*
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **provider**? : *[DependencyProvider](../modules/_dependency_provider_.md#dependencyprovider)‹TDependency›*
 
-*Defined in [lib/dependency-container.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/86fed67/packages/tsdi/lib/dependency-container.ts#L14)*
+*Defined in [lib/dependency-container.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L14)*

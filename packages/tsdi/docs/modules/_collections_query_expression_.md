@@ -14,7 +14,7 @@
 
 Ƭ **QueryExpression**: *function*
 
-*Defined in [lib/collections/query-expression.ts:1](https://github.com/DavidVollmers/typescript-dependency-injection/blob/86fed67/packages/tsdi/lib/collections/query-expression.ts#L1)*
+*Defined in [lib/collections/query-expression.ts:1](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/collections/query-expression.ts#L1)*
 
 #### Type declaration:
 

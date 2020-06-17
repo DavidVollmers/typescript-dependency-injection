@@ -1,6 +1,6 @@
 {
   "name": "@dvolper/tsdi",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "TypeScript Dependency Injection",
   "keywords": [
     "dependency-injection",

@@ -26,7 +26,7 @@
 
 ▸ **[Symbol.iterator]**(): *Generator‹TType, any, TType›*
 
-*Defined in [lib/collections/collection.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/86fed67/packages/tsdi/lib/collections/collection.ts#L3)*
+*Defined in [lib/collections/collection.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/collections/collection.ts#L3)*
 
 **Returns:** *Generator‹TType, any, TType›*
 
@@ -36,7 +36,7 @@ ___
 
 ▸ **count**(): *number*
 
-*Defined in [lib/collections/collection.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/86fed67/packages/tsdi/lib/collections/collection.ts#L5)*
+*Defined in [lib/collections/collection.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/collections/collection.ts#L5)*
 
 **Returns:** *number*
 
@@ -46,6 +46,6 @@ ___
 
 ▸ **toArray**(): *TType[]*
 
-*Defined in [lib/collections/collection.ts:7](https://github.com/DavidVollmers/typescript-dependency-injection/blob/86fed67/packages/tsdi/lib/collections/collection.ts#L7)*
+*Defined in [lib/collections/collection.ts:7](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/collections/collection.ts#L7)*
 
 **Returns:** *TType[]*
