@@ -1,7 +1,6 @@
 {
   "name": "@dvolper/tsdi-vue",
-  "version": "0.3.2",
-  "types": "index.d.ts",
+  "version": "0.3.3",
   "description": "TypeScript Dependency Injection for VueJS",
   "keywords": [
     "dependency-injection",
@@ -21,7 +20,6 @@
   "files": [
     "lib",
     "index.ts",
-    "index.d.ts",
     "LICENSE",
     "README.md"
   ],
