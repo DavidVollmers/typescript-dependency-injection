@@ -24,8 +24,8 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
   public first (): TDependency
   {
     const first = this._query.first()
-    return this._container.create( first,
-                                   ...this._args )
+    return this._container.serve( first,
+                                  ...this._args )
   }
 
   public firstOrDefault<TDefault = null> ( defaultValue?: TDefault ): TDependency | TDefault
@@ -34,15 +34,15 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
     if( firstOrDefault == null || firstOrDefault === defaultValue ) {
       return defaultValue == null ? null : defaultValue
     }
-    return this._container.create( <DependencyCreator<TDependency>>firstOrDefault,
-                                   ...this._args )
+    return this._container.serve( <DependencyCreator<TDependency>>firstOrDefault,
+                                  ...this._args )
   }
 
   public* [ Symbol.iterator ] (): Generator<TDependency, any, TDependency>
   {
     for( const dependency of this._query ) {
-      yield this._container.create( dependency,
-                                    ...this._args )
+      yield this._container.serve( dependency,
+                                   ...this._args )
     }
   }
 
@@ -59,8 +59,8 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
   public single (): TDependency
   {
     const single = this._query.single()
-    return this._container.create( single,
-                                   ...this._args )
+    return this._container.serve( single,
+                                  ...this._args )
   }
 
   public singleOrDefault<TDefault = null> ( defaultValue?: TDefault ): TDependency | TDefault
@@ -69,8 +69,8 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
     if( singleOrDefault == null || singleOrDefault === defaultValue ) {
       return defaultValue == null ? null : defaultValue
     }
-    return this._container.create( <DependencyCreator<TDependency>>singleOrDefault,
-                                   ...this._args )
+    return this._container.serve( <DependencyCreator<TDependency>>singleOrDefault,
+                                  ...this._args )
   }
 
   public toArray (): TDependency[]
@@ -78,8 +78,8 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
     const instances: TDependency[] = []
     const dependencies             = this._query.toArray()
     for( const dependency of dependencies ) {
-      instances.push( this._container.create( dependency,
-                                              ...this._args ) )
+      instances.push( this._container.serve( dependency,
+                                             ...this._args ) )
     }
     return instances
   }

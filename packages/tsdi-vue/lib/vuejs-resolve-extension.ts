@@ -18,7 +18,7 @@ export class VueJSResolveExtension extends ResolveExtension {
                         get: ( target => {
                             let instance: any = null
                             return () => {
-                                if( !instance ) instance = dc.create( target )
+                                if( !instance ) instance = dc.serve( target )
                                 return instance
                             }
                         } )( propertyType ),

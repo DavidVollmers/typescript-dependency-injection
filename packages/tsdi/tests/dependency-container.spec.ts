@@ -20,12 +20,12 @@ describe( 'DependencyContainer',
             it( 'Argument validation',
                 () => {
                   expect( () => {
-                    dc.create( null )
+                    dc.serve( null )
                   } )
                     .toThrow( MissingArgumentError( 'dependency',
                                                     'DependencyContainer::create' ) )
                   expect( () => {
-                    dc.create( <any>{} )
+                    dc.serve( <any>{} )
                   } )
                     .toThrow( InvalidArgumentError( 'dependency',
                                                     'of type Function',
@@ -33,7 +33,7 @@ describe( 'DependencyContainer',
                 } )
             it( 'Create Number',
                 () => {
-                  const value = dc.create( Number )
+                  const value = dc.serve( Number )
                   expect( value instanceof Number )
                     .toBe( true )
                   expect( value.toString() )
@@ -41,7 +41,7 @@ describe( 'DependencyContainer',
                 } )
             it( 'Create TestService and echo "test"',
                 () => {
-                  const instance = dc.create( TestService )
+                  const instance = dc.serve( TestService )
                   expect( instance instanceof TestService )
                     .toBe( true )
                   expect( instance.constructorEcho )
@@ -55,7 +55,7 @@ describe( 'DependencyContainer',
                 () => {
                   dc.add( TestService,
                           () => new TestService( 'test' ) )
-                  const instance = dc.create( TestService )
+                  const instance = dc.serve( TestService )
                   expect( instance instanceof TestService )
                     .toBe( true )
                   expect( instance.constructorEcho )
@@ -63,7 +63,7 @@ describe( 'DependencyContainer',
                 } )
             it( 'Resolve constructor with unregistered dependencies',
                 () => {
-                  const instance = dc.create( ConstructorMetadataTestService )
+                  const instance = dc.serve( ConstructorMetadataTestService )
                   expect( instance instanceof ConstructorMetadataTestService )
                     .toBe( true )
                   expect( () => {
@@ -74,7 +74,7 @@ describe( 'DependencyContainer',
             it( 'Resolve constructor with registered dependencies',
                 () => {
                   dc.add( TestService )
-                  const instance = dc.create( ConstructorMetadataTestService )
+                  const instance = dc.serve( ConstructorMetadataTestService )
                   expect( instance instanceof ConstructorMetadataTestService )
                     .toBe( true )
                   const input = 'test-input'
@@ -84,7 +84,7 @@ describe( 'DependencyContainer',
             it( 'Resolve property with dependencies',
                 () => {
                   dc.add( TestService )
-                  const instance = dc.create( PropertyMetadataTestService )
+                  const instance = dc.serve( PropertyMetadataTestService )
                   expect( instance instanceof PropertyMetadataTestService )
                     .toBe( true )
                   const input = 'test-input'
@@ -117,14 +117,14 @@ describe( 'DependencyContainer Decorators',
             it( 'No Decorator (Transient)',
                 () => {
                   const input1    = 'input-1'
-                  const instance1 = dc.create( TestService,
+                  const instance1 = dc.serve( TestService,
                                                input1 )
                   expect( instance1 instanceof TestService )
                     .toBe( true )
                   expect( instance1.constructorEcho )
                     .toBe( input1 )
                   const input2    = 'input-2'
-                  const instance2 = dc.create( TestService,
+                  const instance2 = dc.serve( TestService,
                                                input2 )
                   expect( instance2 instanceof TestService )
                     .toBe( true )
@@ -134,13 +134,13 @@ describe( 'DependencyContainer Decorators',
             it( 'Singleton',
                 () => {
                   const input1    = 'input-1'
-                  const instance1 = dc.create( SingletonTestService,
+                  const instance1 = dc.serve( SingletonTestService,
                                                input1 )
                   expect( instance1 instanceof SingletonTestService )
                     .toBe( true )
                   expect( instance1.constructorEcho )
                     .toBe( input1 )
-                  const instance2 = dc.create( SingletonTestService,
+                  const instance2 = dc.serve( SingletonTestService,
                                                'WILL BE IGNORED' )
                   expect( instance2 instanceof SingletonTestService )
                     .toBe( true )
@@ -150,14 +150,14 @@ describe( 'DependencyContainer Decorators',
             it( 'Scoped without scope (Transient)',
                 () => {
                   const input1    = 'input-1'
-                  const instance1 = dc.create( ScopedTestService,
+                  const instance1 = dc.serve( ScopedTestService,
                                                input1 )
                   expect( instance1 instanceof ScopedTestService )
                     .toBe( true )
                   expect( instance1.constructorEcho )
                     .toBe( input1 )
                   const input2    = 'input-2'
-                  const instance2 = dc.create( ScopedTestService,
+                  const instance2 = dc.serve( ScopedTestService,
                                                input2 )
                   expect( instance2 instanceof ScopedTestService )
                     .toBe( true )
@@ -169,13 +169,13 @@ describe( 'DependencyContainer Decorators',
                   const scope = 'test-scope'
                   dc.useScope( scope )
                   const input1    = 'input-1'
-                  const instance1 = dc.create( ScopedTestService,
+                  const instance1 = dc.serve( ScopedTestService,
                                                input1 )
                   expect( instance1 instanceof ScopedTestService )
                     .toBe( true )
                   expect( instance1.constructorEcho )
                     .toBe( input1 )
-                  const instance2 = dc.create( ScopedTestService,
+                  const instance2 = dc.serve( ScopedTestService,
                                                'WILL BE IGNORED' )
                   expect( instance2 instanceof ScopedTestService )
                     .toBe( true )
