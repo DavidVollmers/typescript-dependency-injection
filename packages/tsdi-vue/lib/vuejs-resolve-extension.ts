@@ -1,12 +1,12 @@
 import {ResolveExtension, DependencyContainer} from '@dvolper/tsdi'
 
-// This is needed for VueJS async? child components
 export class VueJSResolveExtension extends ResolveExtension
 {
   public resolve<TDependency extends object> ( dc: DependencyContainer,
                                                dependency: TDependency ): TDependency
   {
     const creator: any = dependency.constructor
+    // This is needed for VueJS async? child components
     if( creator.superOptions
         && creator.superOptions._base
         && creator.superOptions._base.__tsdi__
@@ -28,6 +28,13 @@ export class VueJSResolveExtension extends ResolveExtension
                                } )
       }
     }
+    Object.defineProperty( dependency,
+                           '$di',
+                           {
+                             get: () => {
+                               return dc
+                             },
+                           } )
     return dependency
   }
 }
