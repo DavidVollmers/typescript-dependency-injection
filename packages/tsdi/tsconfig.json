@@ -1,16 +1,8 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "module": "esnext",
     "target": "esnext",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "downlevelIteration": true,
-    "alwaysStrict": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
     "noEmit": true
   }
 }

@@ -52,7 +52,7 @@ Only dependencies marked with `@Singleton` are globally unique.
 
 \+ **new DependencyContainer**(`scope?`: string): *[DependencyContainer](_dependency_container_.dependencycontainer.md)*
 
-*Defined in [lib/dependency-container.ts:50](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L50)*
+*Defined in [lib/dependency-container.ts:51](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L51)*
 
 **Parameters:**
 
@@ -68,7 +68,7 @@ Name | Type | Description |
 
 • **_abstractionMapping**: *object*
 
-*Defined in [lib/dependency-container.ts:28](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L28)*
+*Defined in [lib/dependency-container.ts:29](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L29)*
 
 #### Type declaration:
 
@@ -80,7 +80,7 @@ ___
 
 • **_currentScope**? : *string*
 
-*Defined in [lib/dependency-container.ts:37](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L37)*
+*Defined in [lib/dependency-container.ts:38](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L38)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 • **_registeredDependencies**: *object*
 
-*Defined in [lib/dependency-container.ts:25](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L25)*
+*Defined in [lib/dependency-container.ts:26](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L26)*
 
 #### Type declaration:
 
@@ -100,7 +100,7 @@ ___
 
 • **_scopedInstances**: *object*
 
-*Defined in [lib/dependency-container.ts:34](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L34)*
+*Defined in [lib/dependency-container.ts:35](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L35)*
 
 #### Type declaration:
 
@@ -112,7 +112,7 @@ ___
 
 • **_singletonInstances**: *object*
 
-*Defined in [lib/dependency-container.ts:31](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L31)*
+*Defined in [lib/dependency-container.ts:32](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L32)*
 
 #### Type declaration:
 
@@ -124,7 +124,7 @@ ___
 
 ▪ **_globalInstance**: *[DependencyContainer](_dependency_container_.dependencycontainer.md)* = new DependencyContainer( 'global' )
 
-*Defined in [lib/dependency-container.ts:24](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L24)*
+*Defined in [lib/dependency-container.ts:25](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L25)*
 
 ## Accessors
 
@@ -132,7 +132,7 @@ ___
 
 • **get global**(): *[DependencyContainer](_dependency_container_.dependencycontainer.md)*
 
-*Defined in [lib/dependency-container.ts:47](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L47)*
+*Defined in [lib/dependency-container.ts:48](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L48)*
 
 Do not use the global instance to add dependencies!
 Every dependency added to any DependencyContainer instance will also be cached globally.
@@ -149,7 +149,7 @@ The global DependencyContainer instance
 
 ▸ **abstract**‹**TAbstraction**›(`abstraction`: [AbstractDependency](../modules/_abstract_dependency_.md#abstractdependency)‹TAbstraction›, ...`args`: any[]): *[DependencyQuery](_collections_dependency_query_.dependencyquery.md)‹TAbstraction›*
 
-*Defined in [lib/dependency-container.ts:161](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L161)*
+*Defined in [lib/dependency-container.ts:165](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L165)*
 
 Queries the DependencyContainer cache based on a specified abstraction.
 
@@ -174,7 +174,7 @@ ___
 
 ▸ **add**‹**TDependency**›(`dependency`: [DependencyCreator](../modules/_dependency_creator_.md#dependencycreator)‹TDependency›, `provider?`: [DependencyProvider](../modules/_dependency_provider_.md#dependencyprovider)‹TDependency›): *[DependencyContainer](_dependency_container_.dependencycontainer.md)*
 
-*Defined in [lib/dependency-container.ts:68](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L68)*
+*Defined in [lib/dependency-container.ts:70](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L70)*
 
 Adds a dependency to the DependencyContainer cache and marks it as `@Injectable`.
 
@@ -195,7 +195,7 @@ The DependencyContainer instance itself (for chaining .add calls)
 
 ▸ **add**‹**TDependency**, **TAbstraction**›(`abstraction`: [AbstractDependency](../modules/_abstract_dependency_.md#abstractdependency)‹TAbstraction›, `implementation`: [DependencyCreator](../modules/_dependency_creator_.md#dependencycreator)‹TDependency›, `provider?`: [DependencyProvider](../modules/_dependency_provider_.md#dependencyprovider)‹TDependency›): *[DependencyContainer](_dependency_container_.dependencycontainer.md)*
 
-*Defined in [lib/dependency-container.ts:79](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L79)*
+*Defined in [lib/dependency-container.ts:81](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L81)*
 
 Adds a dependency as an implementation of an abstraction to the DependencyContainer cache and marks it as `@Injectable`.
 When mapping a dependency to an abstraction it is possible to query it based on the abstraction later on. (See `DependencyContainer::abstract`)
@@ -224,7 +224,7 @@ ___
 
 ▸ **dispose**(): *void*
 
-*Defined in [lib/dependency-container.ts:401](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L401)*
+*Defined in [lib/dependency-container.ts:406](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L406)*
 
 **Returns:** *void*
 
@@ -234,7 +234,7 @@ ___
 
 ▸ **disposeCurrentScope**(): *void*
 
-*Defined in [lib/dependency-container.ts:474](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L474)*
+*Defined in [lib/dependency-container.ts:479](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L479)*
 
 **Returns:** *void*
 
@@ -244,7 +244,7 @@ ___
 
 ▸ **exitScope**(`scope`: string): *void*
 
-*Defined in [lib/dependency-container.ts:383](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L383)*
+*Defined in [lib/dependency-container.ts:388](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L388)*
 
 **Parameters:**
 
@@ -260,7 +260,7 @@ ___
 
 ▸ **query**(...`args`: any[]): *[DependencyQuery](_collections_dependency_query_.dependencyquery.md)‹any›*
 
-*Defined in [lib/dependency-container.ts:346](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L346)*
+*Defined in [lib/dependency-container.ts:351](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L351)*
 
 Queries the DependencyContainer cache.
 
@@ -280,13 +280,13 @@ ___
 
 ▸ **resolve**‹**TDependency**›(`dependency`: TDependency): *TDependency*
 
-*Defined in [lib/dependency-container.ts:292](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L292)*
+*Defined in [lib/dependency-container.ts:296](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L296)*
 
 Resolves an instance of a dependency.
 
 **`remarks`** 
 Only properties of an instance marked with `@Resolve` will be resolved.
-You can extend the default resolve behaviour of any DependencyContainer by adding a derivation of `ResolveExtension` ot it:
+You can extend the default resolve behaviour of any DependencyContainer by adding a derivation of `ResolveExtension` to it:
 (See `ResolveExtension`)
 ```ts
 import {DependencyContainer, ResolveExtension} from '@dvolper/tsdi'
@@ -326,7 +326,7 @@ ___
 
 ▸ **resolveCreationArgument**(`target`: any, `args`: any[]): *any*
 
-*Defined in [lib/dependency-container.ts:454](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L454)*
+*Defined in [lib/dependency-container.ts:459](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L459)*
 
 **Parameters:**
 
@@ -343,7 +343,7 @@ ___
 
 ▸ **resolveCreationArguments**‹**TDependency**›(`dependency`: [DependencyCreator](../modules/_dependency_creator_.md#dependencycreator)‹TDependency›, `args`: any[]): *any[]*
 
-*Defined in [lib/dependency-container.ts:436](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L436)*
+*Defined in [lib/dependency-container.ts:441](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L441)*
 
 **Type parameters:**
 
@@ -364,7 +364,7 @@ ___
 
 ▸ **serve**‹**TDependency**›(`dependency`: [DependencyCreator](../modules/_dependency_creator_.md#dependencycreator)‹TDependency›, ...`args`: any[]): *TDependency*
 
-*Defined in [lib/dependency-container.ts:228](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L228)*
+*Defined in [lib/dependency-container.ts:232](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L232)*
 
 Serves a resolved instance of the specified dependency. (See `DependencyContainer::resolve`)
 
@@ -414,7 +414,7 @@ ___
 
 ▸ **useScope**(`scope`: string): *void*
 
-*Defined in [lib/dependency-container.ts:362](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L362)*
+*Defined in [lib/dependency-container.ts:367](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L367)*
 
 **Parameters:**
 
@@ -430,7 +430,7 @@ ___
 
 ▸ **verifyMetadata**(`target`: [TypeReference](../interfaces/_type_reference_.typereference.md)): *void*
 
-*Defined in [lib/dependency-container.ts:413](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L413)*
+*Defined in [lib/dependency-container.ts:418](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L418)*
 
 **Parameters:**
 
@@ -446,7 +446,7 @@ ___
 
 ▸ **isPrototypeAssignableFrom**(`prototype`: any, `type`: [TypeReference](../interfaces/_type_reference_.typereference.md)): *boolean*
 
-*Defined in [lib/dependency-container.ts:506](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L506)*
+*Defined in [lib/dependency-container.ts:511](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L511)*
 
 **Parameters:**
 
@@ -463,7 +463,7 @@ ___
 
 ▸ **resolveTargetByContext**(`target`: any, `context?`: any[]): *any*
 
-*Defined in [lib/dependency-container.ts:482](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b1e22ef/packages/tsdi/lib/dependency-container.ts#L482)*
+*Defined in [lib/dependency-container.ts:487](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/dependency-container.ts#L487)*
 
 **Parameters:**
 

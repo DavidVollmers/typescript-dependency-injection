@@ -1,7 +1,8 @@
 {
   "name": "@dvolper/tsdi",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "description": "TypeScript Dependency Injection",
+  "main": "./dist/cjs/index.js",
   "keywords": [
     "dependency-injection",
     "dependencies",
@@ -18,6 +19,7 @@
     "access": "public"
   },
   "files": [
+    "dist",
     "docs",
     "lib",
     "index.ts",
@@ -25,15 +27,18 @@
     "README.md"
   ],
   "scripts": {
+    "clean:cjs": "rimraf dist/cjs",
     "clean:docs": "rimraf docs",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:docs": "typedoc --ignoreCompilerErrors --theme markdown --tsconfig tsconfig.docs.json --out docs lib",
     "rebuild:docs": "npm-run-all clean:docs build:docs",
+    "rebuild:cjs": "npm-run-all clean:cjs build:cjs",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "publish:version": "npm version patch --no-git-tag-version",
-    "prepublishOnly": "npm-run-all test rebuild:docs publish:version"
+    "prepublishOnly": "npm-run-all test rebuild:cjs rebuild:docs publish:version"
   },
   "peerDependencies": {
     "reflect-metadata": "^0.1.13"

@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import {TypeReference} from '../type-reference'
 
 export const Resolve = ( target: any,

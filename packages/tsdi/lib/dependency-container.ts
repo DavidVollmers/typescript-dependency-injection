@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import {DependencyCreator}                          from './dependency-creator'
 import {InvalidArgumentError, MissingArgumentError} from './resources/errors'
 import {AbstractDependency}                         from './abstract-dependency'
