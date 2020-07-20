@@ -14,7 +14,7 @@
 
 ▸ **Scoped**(`target`: [TypeReference](../interfaces/_type_reference_.typereference.md)): *void*
 
-*Defined in [lib/decorators/scoped.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/decorators/scoped.ts#L4)*
+*Defined in [lib/decorators/scoped.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/decorators/scoped.ts#L4)*
 
 **Parameters:**
 

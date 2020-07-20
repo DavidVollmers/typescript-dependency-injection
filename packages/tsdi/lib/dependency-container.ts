@@ -9,6 +9,12 @@ import {TypeReference}                              from './type-reference'
 import {DependencyInjectionBehaviour}               from './dependency-metadata'
 import {ResolveExtension}                           from './extensions/resolve-extension'
 
+export enum ServingBehaviour
+{
+  Lazy,
+  Greedy
+}
+
 interface RegisteredDependency<TDependency extends object>
 {
   readonly dependency: DependencyCreator<TDependency>
@@ -36,6 +42,7 @@ export class DependencyContainer
     [ key: string ]: any
   }                                                            = {}
   private _currentScope?: string
+  public servingBehaviour: ServingBehaviour                    = ServingBehaviour.Lazy
 
   /**
    * Do not use the global instance to add dependencies!
@@ -472,6 +479,7 @@ export class DependencyContainer
       const instance = this.abstract( target )
                            .firstOrDefault()
       if( instance ) return instance
+      if( this.servingBehaviour === ServingBehaviour.Greedy ) return this.serve( target )
     }
     return null
   }

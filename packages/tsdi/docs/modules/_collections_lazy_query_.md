@@ -22,4 +22,4 @@
 
 Ƭ **LazyOperation**: *[QueryExpression](_collections_query_expression_.md#queryexpression)‹TType, boolean | TType | TType[]›*
 
-*Defined in [lib/collections/lazy-query.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/33f18a4/packages/tsdi/lib/collections/lazy-query.ts#L4)*
+*Defined in [lib/collections/lazy-query.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L4)*

@@ -4,6 +4,10 @@
 
 ## Index
 
+### Enumerations
+
+* [ServingBehaviour](../enums/_dependency_container_.servingbehaviour.md)
+
 ### Classes
 
 * [DependencyContainer](../classes/_dependency_container_.dependencycontainer.md)
