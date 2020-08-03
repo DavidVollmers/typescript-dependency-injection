@@ -1,13 +1,9 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "moduleResolution": "node",
     "module": "esnext",
     "target": "esnext",
-    "alwaysStrict": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
     "noEmit": true
   }
 }

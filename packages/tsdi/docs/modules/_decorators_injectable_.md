@@ -14,7 +14,7 @@
 
 ▸ **Injectable**(`target`: [TypeReference](../interfaces/_type_reference_.typereference.md)): *void*
 
-*Defined in [lib/decorators/injectable.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/decorators/injectable.ts#L3)*
+*Defined in [lib/decorators/injectable.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/decorators/injectable.ts#L3)*
 
 **Parameters:**
 

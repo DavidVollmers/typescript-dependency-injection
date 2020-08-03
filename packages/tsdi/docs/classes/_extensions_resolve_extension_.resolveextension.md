@@ -22,7 +22,7 @@
 
 • **get __tsdi__**(): *[DependencyMetadata](../modules/_dependency_metadata_.md#dependencymetadata)*
 
-*Defined in [lib/extensions/resolve-extension.ts:6](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/extensions/resolve-extension.ts#L6)*
+*Defined in [lib/extensions/resolve-extension.ts:6](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/extensions/resolve-extension.ts#L6)*
 
 **Returns:** *[DependencyMetadata](../modules/_dependency_metadata_.md#dependencymetadata)*
 
@@ -32,7 +32,7 @@
 
 ▸ **resolve**‹**TDependency**›(`dc`: [DependencyContainer](_dependency_container_.dependencycontainer.md), `dependency`: TDependency): *TDependency*
 
-*Defined in [lib/extensions/resolve-extension.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/extensions/resolve-extension.ts#L14)*
+*Defined in [lib/extensions/resolve-extension.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/extensions/resolve-extension.ts#L14)*
 
 **Type parameters:**
 

@@ -2,10 +2,10 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "moduleResolution": "node",
-    "module": "commonjs",
-    "target": "es2016",
+    "module": "esnext",
+    "target": "es6",
     "baseUrl": ".",
-    "outDir": "dist/cjs",
+    "outDir": "dist/es6",
     "declaration": true,
     "declarationMap": true
   },

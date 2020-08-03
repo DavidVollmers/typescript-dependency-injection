@@ -503,7 +503,7 @@ export class DependencyContainer
           || type2 === 'number' && target === Number
           || type2 === 'string' && target === String
           || type2 === 'boolean' && target === Boolean
-          || type2 === 'bigint' && target === BigInt
+          // || type2 === 'bigint' && target === BigInt
           || type2 === 'symbol' && target === Symbol
           || type2 === 'object' && ( target === Object || Array.isArray( target ) )
           || type === 'function' && context[ index ] instanceof target ) {

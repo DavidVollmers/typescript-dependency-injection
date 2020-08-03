@@ -23,5 +23,6 @@
 * ["dependency-provider"](modules/_dependency_provider_.md)
 * ["extensions/dependency-key-generator"](modules/_extensions_dependency_key_generator_.md)
 * ["extensions/resolve-extension"](modules/_extensions_resolve_extension_.md)
+* ["index"](modules/_index_.md)
 * ["resources/errors"](modules/_resources_errors_.md)
 * ["type-reference"](modules/_type_reference_.md)

@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "moduleResolution": "node",
     "module": "esnext",
     "target": "esnext",
     "noEmit": true

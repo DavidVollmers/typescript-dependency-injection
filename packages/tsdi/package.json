@@ -1,8 +1,9 @@
 {
   "name": "@dvolper/tsdi",
-  "version": "0.4.4",
+  "version": "0.6.1",
   "description": "TypeScript Dependency Injection",
   "main": "./dist/cjs/index.js",
+  "module": "./dist/es6/index.js",
   "keywords": [
     "dependency-injection",
     "dependencies",
@@ -22,23 +23,25 @@
     "dist",
     "docs",
     "lib",
-    "index.ts",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
     "clean:cjs": "rimraf dist/cjs",
+    "clean:es6": "rimraf dist/es6",
     "clean:docs": "rimraf docs",
     "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:es6": "tsc -p tsconfig.es6.json",
     "build:docs": "typedoc --ignoreCompilerErrors --theme markdown --tsconfig tsconfig.docs.json --out docs lib",
     "rebuild:docs": "npm-run-all clean:docs build:docs",
     "rebuild:cjs": "npm-run-all clean:cjs build:cjs",
+    "rebuild:es6": "npm-run-all clean:es6 build:es6",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "publish:version": "npm version patch --no-git-tag-version",
-    "prepublishOnly": "npm-run-all test rebuild:cjs rebuild:docs publish:version"
+    "prepublishOnly": "npm-run-all test rebuild:cjs rebuild:es6 rebuild:docs publish:version"
   },
   "peerDependencies": {
     "reflect-metadata": "^0.1.13"

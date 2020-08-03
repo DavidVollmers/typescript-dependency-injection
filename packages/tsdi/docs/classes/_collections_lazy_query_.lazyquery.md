@@ -47,7 +47,7 @@
 
 \+ **new LazyQuery**(`_items`: TType[]): *[LazyQuery](_collections_lazy_query_.lazyquery.md)*
 
-*Defined in [lib/collections/lazy-query.ts:18](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L18)*
+*Defined in [lib/collections/lazy-query.ts:18](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L18)*
 
 **Parameters:**
 
@@ -63,7 +63,7 @@ Name | Type |
 
 • **_items**: *TType[]*
 
-*Defined in [lib/collections/lazy-query.ts:20](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L20)*
+*Defined in [lib/collections/lazy-query.ts:20](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L20)*
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 • **_operations**: *object[]* = []
 
-*Defined in [lib/collections/lazy-query.ts:15](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L15)*
+*Defined in [lib/collections/lazy-query.ts:15](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L15)*
 
 ## Methods
 
@@ -81,7 +81,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:24](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L24)*
+*Defined in [lib/collections/lazy-query.ts:24](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L24)*
 
 **Returns:** *Generator‹TType, any, TType›*
 
@@ -91,7 +91,7 @@ ___
 
 ▸ **compute**(): *TType[]*
 
-*Defined in [lib/collections/lazy-query.ts:32](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L32)*
+*Defined in [lib/collections/lazy-query.ts:32](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L32)*
 
 **Returns:** *TType[]*
 
@@ -103,7 +103,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:105](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L105)*
+*Defined in [lib/collections/lazy-query.ts:105](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L105)*
 
 **Returns:** *number*
 
@@ -115,7 +115,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:110](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L110)*
+*Defined in [lib/collections/lazy-query.ts:110](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L110)*
 
 **Returns:** *TType*
 
@@ -127,7 +127,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:119](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L119)*
+*Defined in [lib/collections/lazy-query.ts:119](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L119)*
 
 **Type parameters:**
 
@@ -147,7 +147,7 @@ ___
 
 ▸ **joinOperations**(`join`: [OperationJoin](../enums/_collections_lazy_query_.operationjoin.md), `operation1`: [LazyOperation](../modules/_collections_lazy_query_.md#lazyoperation)‹TType›, `operation2`: [LazyOperation](../modules/_collections_lazy_query_.md#lazyoperation)‹TType›): *[LazyOperation](../modules/_collections_lazy_query_.md#lazyoperation)‹TType›*
 
-*Defined in [lib/collections/lazy-query.ts:62](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L62)*
+*Defined in [lib/collections/lazy-query.ts:62](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L62)*
 
 **Parameters:**
 
@@ -165,7 +165,7 @@ ___
 
 ▸ **pushOperation**(`operation`: [LazyOperation](../modules/_collections_lazy_query_.md#lazyoperation)‹TType›, `join`: [OperationJoin](../enums/_collections_lazy_query_.operationjoin.md)): *void*
 
-*Defined in [lib/collections/lazy-query.ts:87](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L87)*
+*Defined in [lib/collections/lazy-query.ts:87](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L87)*
 
 **Parameters:**
 
@@ -184,7 +184,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:128](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L128)*
+*Defined in [lib/collections/lazy-query.ts:128](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L128)*
 
 **Type parameters:**
 
@@ -206,7 +206,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:135](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L135)*
+*Defined in [lib/collections/lazy-query.ts:135](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L135)*
 
 **Type parameters:**
 
@@ -228,7 +228,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:142](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L142)*
+*Defined in [lib/collections/lazy-query.ts:142](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L142)*
 
 **Returns:** *TType*
 
@@ -240,7 +240,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:151](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L151)*
+*Defined in [lib/collections/lazy-query.ts:151](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L151)*
 
 **Type parameters:**
 
@@ -262,7 +262,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:160](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L160)*
+*Defined in [lib/collections/lazy-query.ts:160](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L160)*
 
 **Returns:** *TType[]*
 
@@ -274,7 +274,7 @@ ___
 
 *Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
 
-*Defined in [lib/collections/lazy-query.ts:165](https://github.com/DavidVollmers/typescript-dependency-injection/blob/b0a5e90/packages/tsdi/lib/collections/lazy-query.ts#L165)*
+*Defined in [lib/collections/lazy-query.ts:165](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L165)*
 
 **Parameters:**
 
