@@ -188,7 +188,7 @@ import {FooService} from './services/foo-service'
 
 const dc = new DependencyContainer
 
-// Optional (Only needed if FooService does not "really" implement AbstractFooService, e.g. if it is a Mock)
+// Only needed if the base is a real abstraction (e.g. abstract class) and is not marked as dependency (e.g. @Injectable)
 dc.add( AbstractFooService, FooService )
 ``` 
 
