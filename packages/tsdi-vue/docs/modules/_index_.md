@@ -24,7 +24,7 @@
 
 • **TypeScriptDependencyInjection**: *function* = VueJSPlugin
 
-*Defined in [tsdi-vue/lib/index.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi-vue/lib/index.ts#L3)*
+*Defined in [lib/index.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi-vue/lib/index.ts#L3)*
 
 #### Type declaration:
 

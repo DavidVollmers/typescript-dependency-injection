@@ -15,7 +15,7 @@
 
 ▸ **InvalidArgumentError**(`argument`: string, `mustBe`: string, `location`: string): *string*
 
-*Defined in [lib/resources/errors.ts:7](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/resources/errors.ts#L7)*
+*Defined in [lib/resources/errors.ts:7](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/resources/errors.ts#L7)*
 
 **Parameters:**
 
@@ -33,7 +33,7 @@ ___
 
 ▸ **MissingArgumentError**(`argument`: string, `location`: string): *string*
 
-*Defined in [lib/resources/errors.ts:1](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/resources/errors.ts#L1)*
+*Defined in [lib/resources/errors.ts:1](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/resources/errors.ts#L1)*
 
 **Parameters:**
 

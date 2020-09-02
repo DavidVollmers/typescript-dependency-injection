@@ -26,7 +26,7 @@
 
 *Inherited from [VueJSResolveExtension](_vuejs_resolve_extension_.vuejsresolveextension.md).[__tsdi__](_vuejs_resolve_extension_.vuejsresolveextension.md#static-__tsdi__)*
 
-Defined in tsdi/dist/cjs/extensions/resolve-extension.d.ts:4
+Defined in node_modules/@dvolper/tsdi/dist/cjs/extensions/resolve-extension.d.ts:4
 
 **Returns:** *DependencyMetadata*
 
@@ -38,7 +38,7 @@ Defined in tsdi/dist/cjs/extensions/resolve-extension.d.ts:4
 
 *Overrides void*
 
-*Defined in [tsdi-vue/lib/vuejs-resolve-extension.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi-vue/lib/vuejs-resolve-extension.ts#L5)*
+*Defined in [lib/vuejs-resolve-extension.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi-vue/lib/vuejs-resolve-extension.ts#L5)*
 
 **Type parameters:**
 

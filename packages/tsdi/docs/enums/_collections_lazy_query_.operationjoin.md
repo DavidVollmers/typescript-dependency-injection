@@ -16,7 +16,7 @@
 
 • **None**: = 0
 
-*Defined in [lib/collections/lazy-query.ts:8](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L8)*
+*Defined in [lib/collections/lazy-query.ts:8](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/lazy-query.ts#L8)*
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 • **Select**: = 2
 
-*Defined in [lib/collections/lazy-query.ts:10](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L10)*
+*Defined in [lib/collections/lazy-query.ts:10](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/lazy-query.ts#L10)*
 
 ___
 
@@ -32,4 +32,4 @@ ___
 
 • **Where**: = 1
 
-*Defined in [lib/collections/lazy-query.ts:9](https://github.com/DavidVollmers/typescript-dependency-injection/blob/7e05792/packages/tsdi/lib/collections/lazy-query.ts#L9)*
+*Defined in [lib/collections/lazy-query.ts:9](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/lazy-query.ts#L9)*
