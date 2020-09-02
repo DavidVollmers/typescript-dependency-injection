@@ -1,6 +1,6 @@
 {
   "name": "@dvolper/tsdi-vue",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "TypeScript Dependency Injection for VueJS",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es6/index.js",
@@ -45,10 +45,10 @@
     "prepublishOnly": "npm-run-all rebuild:cjs rebuild:es6 rebuild:docs publish:version"
   },
   "peerDependencies": {
-    "@dvolper/tsdi": "^0.6.1"
+    "@dvolper/tsdi": "^0.6.2"
   },
   "devDependencies": {
-    "@dvolper/tsdi": "^0.6.1",
+    "@dvolper/tsdi": "^0.6.2",
     "@types/jest": "25.2.3",
     "jest": "26.0.1",
     "ts-jest": "26.1.0",

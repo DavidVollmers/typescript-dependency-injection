@@ -1,4 +1,4 @@
-import {ResolveExtension, DependencyContainer} from '@dvolper/tsdi'
+import {DependencyContainer, ResolveExtension} from '@dvolper/tsdi'
 
 export class VueJSResolveExtension extends ResolveExtension
 {

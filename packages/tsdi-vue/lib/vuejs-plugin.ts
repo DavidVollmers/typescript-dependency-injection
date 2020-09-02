@@ -9,7 +9,7 @@ export interface VueJSPluginOptions
 
 export const VueJSPlugin: PluginFunction<VueJSPluginOptions> = function ( Vue: typeof _Vue,
                                                                           options?: VueJSPluginOptions ): void {
-    Vue.mixin( {
+  Vue.mixin( {
                beforeMount ()
                {
                  const dc = new DependencyContainer
@@ -20,4 +20,11 @@ export const VueJSPlugin: PluginFunction<VueJSPluginOptions> = function ( Vue: t
                  dc.resolve( this )
                },
              } )
+}
+declare module 'vue/types/vue'
+{
+  interface Vue
+  {
+    readonly $di: DependencyContainer
+  }
 }
