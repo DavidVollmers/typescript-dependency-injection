@@ -7,8 +7,8 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@dvolper/tsdi": "^0.6.1",
-    "@dvolper/tsdi-vue": "^0.6.1",
+    "@dvolper/tsdi": "^0.6.2",
+    "@dvolper/tsdi-vue": "^0.6.2",
     "reflect-metadata": "^0.1.13",
     "vue": "^2.6.11",
     "vue-property-decorator": "^8.4.2"

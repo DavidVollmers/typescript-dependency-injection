@@ -14,7 +14,7 @@
     "vue",
     "vuejs"
   ],
-  "author": "David Vollmers <tsdi@dvolper.xyz>",
+  "author": "David Vollmers <github@dvolper.xyz>",
   "homepage": "https://github.com/DavidVollmers/typescript-dependency-injection",
   "license": "MIT",
   "publishConfig": {
