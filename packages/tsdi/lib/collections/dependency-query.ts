@@ -1,8 +1,6 @@
-import {LazyQuery}           from './lazy-query'
-import {Queryable}           from './queryable'
-import {DependencyContainer} from '../dependency-container'
-import {QueryExpression}     from './query-expression'
-import {DependencyCreator}   from '../dependency-creator'
+import {LazyQuery, Queryable, QueryExpression} from '@dvolper/ts-collections'
+import {DependencyContainer}                   from '../dependency-container'
+import {DependencyCreator}                     from '../dependency-creator'
 
 //TODO extend LazyQuery since returning it from operations is bullshit... (select, where, etc.)
 export class DependencyQuery<TDependency extends object> implements Queryable<TDependency>

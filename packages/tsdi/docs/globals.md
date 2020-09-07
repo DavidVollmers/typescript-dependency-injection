@@ -8,11 +8,7 @@
 
 * ["abstract-dependency"](modules/_abstract_dependency_.md)
 * ["class-reference"](modules/_class_reference_.md)
-* ["collections/collection"](modules/_collections_collection_.md)
 * ["collections/dependency-query"](modules/_collections_dependency_query_.md)
-* ["collections/lazy-query"](modules/_collections_lazy_query_.md)
-* ["collections/query-expression"](modules/_collections_query_expression_.md)
-* ["collections/queryable"](modules/_collections_queryable_.md)
 * ["decorators/injectable"](modules/_decorators_injectable_.md)
 * ["decorators/resolve"](modules/_decorators_resolve_.md)
 * ["decorators/scoped"](modules/_decorators_scoped_.md)

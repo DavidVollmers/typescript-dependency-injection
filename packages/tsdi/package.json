@@ -1,6 +1,6 @@
 {
   "name": "@dvolper/tsdi",
-  "version": "0.6.2",
+  "version": "0.7.1",
   "description": "TypeScript Dependency Injection",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es6/index.js",
@@ -46,6 +46,9 @@
   },
   "peerDependencies": {
     "reflect-metadata": "^0.1.13"
+  },
+  "dependencies": {
+    "@dvolper/ts-collections": "^0.1.1"
   },
   "devDependencies": {
     "@types/jest": "25.2.3",

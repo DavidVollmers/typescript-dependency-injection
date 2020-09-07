@@ -22,7 +22,7 @@
 
 ▸ **VueJSPlugin**(`Vue`: typeof _Vue, `options?`: [VueJSPluginOptions](../interfaces/_vuejs_plugin_.vuejspluginoptions.md)): *void*
 
-*Defined in [tsdi-vue/lib/vuejs-plugin.ts:10](https://github.com/DavidVollmers/typescript-dependency-injection/blob/6e805be/packages/tsdi-vue/lib/vuejs-plugin.ts#L10)*
+*Defined in [tsdi-vue/lib/vuejs-plugin.ts:10](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi-vue/lib/vuejs-plugin.ts#L10)*
 
 **Parameters:**
 

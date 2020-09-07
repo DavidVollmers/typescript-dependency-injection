@@ -18,4 +18,4 @@
 
 • **$di**: *DependencyContainer*
 
-*Defined in [tsdi-vue/lib/vuejs-plugin.ts:28](https://github.com/DavidVollmers/typescript-dependency-injection/blob/6e805be/packages/tsdi-vue/lib/vuejs-plugin.ts#L28)*
+*Defined in [tsdi-vue/lib/vuejs-plugin.ts:28](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi-vue/lib/vuejs-plugin.ts#L28)*

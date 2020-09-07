@@ -38,7 +38,7 @@ Defined in tsdi/dist/es6/extensions/resolve-extension.d.ts:4
 
 *Overrides void*
 
-*Defined in [tsdi-vue/lib/vuejs-resolve-extension.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/6e805be/packages/tsdi-vue/lib/vuejs-resolve-extension.ts#L5)*
+*Defined in [tsdi-vue/lib/vuejs-resolve-extension.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi-vue/lib/vuejs-resolve-extension.ts#L5)*
 
 **Type parameters:**
 

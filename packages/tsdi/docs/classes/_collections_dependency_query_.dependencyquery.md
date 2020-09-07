@@ -12,7 +12,7 @@
 
 ## Implements
 
-* [Queryable](../interfaces/_collections_queryable_.queryable.md)‹TDependency›
+* Queryable‹TDependency›
 
 ## Index
 
@@ -45,7 +45,7 @@
 
 \+ **new DependencyQuery**(`_container`: [DependencyContainer](_dependency_container_.dependencycontainer.md), `dependencies`: [DependencyCreator](../modules/_dependency_creator_.md#dependencycreator)‹TDependency›[], `_args`: any[]): *[DependencyQuery](_collections_dependency_query_.dependencyquery.md)*
 
-*Defined in [lib/collections/dependency-query.ts:10](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L10)*
+*Defined in [lib/collections/dependency-query.ts:8](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L8)*
 
 **Parameters:**
 
@@ -63,7 +63,7 @@ Name | Type |
 
 • **_args**: *any[]*
 
-*Defined in [lib/collections/dependency-query.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L14)*
+*Defined in [lib/collections/dependency-query.ts:12](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L12)*
 
 ___
 
@@ -71,15 +71,15 @@ ___
 
 • **_container**: *[DependencyContainer](_dependency_container_.dependencycontainer.md)*
 
-*Defined in [lib/collections/dependency-query.ts:12](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L12)*
+*Defined in [lib/collections/dependency-query.ts:10](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L10)*
 
 ___
 
 ### `Private` `Readonly` _query
 
-• **_query**: *[Queryable](../interfaces/_collections_queryable_.queryable.md)‹[DependencyCreator](../modules/_dependency_creator_.md#dependencycreator)‹TDependency››*
+• **_query**: *Queryable‹[DependencyCreator](../modules/_dependency_creator_.md#dependencycreator)‹TDependency››*
 
-*Defined in [lib/collections/dependency-query.ts:10](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L10)*
+*Defined in [lib/collections/dependency-query.ts:8](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L8)*
 
 ## Methods
 
@@ -87,9 +87,7 @@ ___
 
 ▸ **[Symbol.iterator]**(): *Generator‹TDependency, any, TDependency›*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:41](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L41)*
+*Defined in [lib/collections/dependency-query.ts:39](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L39)*
 
 **Returns:** *Generator‹TDependency, any, TDependency›*
 
@@ -99,9 +97,7 @@ ___
 
 ▸ **count**(): *number*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:19](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L19)*
+*Defined in [lib/collections/dependency-query.ts:17](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L17)*
 
 **Returns:** *number*
 
@@ -111,9 +107,7 @@ ___
 
 ▸ **first**(): *TDependency*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:24](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L24)*
+*Defined in [lib/collections/dependency-query.ts:22](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L22)*
 
 **Returns:** *TDependency*
 
@@ -123,9 +117,7 @@ ___
 
 ▸ **firstOrDefault**‹**TDefault**›(`defaultValue?`: TDefault): *TDependency | TDefault*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:31](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L31)*
+*Defined in [lib/collections/dependency-query.ts:29](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L29)*
 
 **Type parameters:**
 
@@ -143,11 +135,9 @@ ___
 
 ###  select
 
-▸ **select**‹**TReturn**›(`expression`: [QueryExpression](../modules/_collections_query_expression_.md#queryexpression)‹TDependency, TReturn›): *[Queryable](../interfaces/_collections_queryable_.queryable.md)‹TReturn›*
+▸ **select**‹**TReturn**›(`expression`: QueryExpression‹TDependency, TReturn›): *Queryable‹TReturn›*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:49](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L49)*
+*Defined in [lib/collections/dependency-query.ts:47](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L47)*
 
 **Type parameters:**
 
@@ -157,19 +147,17 @@ ___
 
 Name | Type |
 ------ | ------ |
-`expression` | [QueryExpression](../modules/_collections_query_expression_.md#queryexpression)‹TDependency, TReturn› |
+`expression` | QueryExpression‹TDependency, TReturn› |
 
-**Returns:** *[Queryable](../interfaces/_collections_queryable_.queryable.md)‹TReturn›*
+**Returns:** *Queryable‹TReturn›*
 
 ___
 
 ###  selectMany
 
-▸ **selectMany**‹**TReturn**›(`expression`: [QueryExpression](../modules/_collections_query_expression_.md#queryexpression)‹TDependency, TReturn[]›): *[Queryable](../interfaces/_collections_queryable_.queryable.md)‹TReturn›*
+▸ **selectMany**‹**TReturn**›(`expression`: QueryExpression‹TDependency, TReturn[]›): *Queryable‹TReturn›*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:54](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L54)*
+*Defined in [lib/collections/dependency-query.ts:52](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L52)*
 
 **Type parameters:**
 
@@ -179,9 +167,9 @@ ___
 
 Name | Type |
 ------ | ------ |
-`expression` | [QueryExpression](../modules/_collections_query_expression_.md#queryexpression)‹TDependency, TReturn[]› |
+`expression` | QueryExpression‹TDependency, TReturn[]› |
 
-**Returns:** *[Queryable](../interfaces/_collections_queryable_.queryable.md)‹TReturn›*
+**Returns:** *Queryable‹TReturn›*
 
 ___
 
@@ -189,9 +177,7 @@ ___
 
 ▸ **single**(): *TDependency*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:59](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L59)*
+*Defined in [lib/collections/dependency-query.ts:57](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L57)*
 
 **Returns:** *TDependency*
 
@@ -201,9 +187,7 @@ ___
 
 ▸ **singleOrDefault**‹**TDefault**›(`defaultValue?`: TDefault): *TDependency | TDefault*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:66](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L66)*
+*Defined in [lib/collections/dependency-query.ts:64](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L64)*
 
 **Type parameters:**
 
@@ -223,9 +207,7 @@ ___
 
 ▸ **toArray**(): *TDependency[]*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:76](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L76)*
+*Defined in [lib/collections/dependency-query.ts:74](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L74)*
 
 **Returns:** *TDependency[]*
 
@@ -233,16 +215,14 @@ ___
 
 ###  where
 
-▸ **where**(`expression`: [QueryExpression](../modules/_collections_query_expression_.md#queryexpression)‹TDependency, boolean›): *[Queryable](../interfaces/_collections_queryable_.queryable.md)‹TDependency›*
+▸ **where**(`expression`: QueryExpression‹TDependency, boolean›): *Queryable‹TDependency›*
 
-*Implementation of [Queryable](../interfaces/_collections_queryable_.queryable.md)*
-
-*Defined in [lib/collections/dependency-query.ts:87](https://github.com/DavidVollmers/typescript-dependency-injection/blob/4059c40/packages/tsdi/lib/collections/dependency-query.ts#L87)*
+*Defined in [lib/collections/dependency-query.ts:85](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/collections/dependency-query.ts#L85)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`expression` | [QueryExpression](../modules/_collections_query_expression_.md#queryexpression)‹TDependency, boolean› |
+`expression` | QueryExpression‹TDependency, boolean› |
 
-**Returns:** *[Queryable](../interfaces/_collections_queryable_.queryable.md)‹TDependency›*
+**Returns:** *Queryable‹TDependency›*
