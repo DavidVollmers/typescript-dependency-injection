@@ -1,7 +1,6 @@
 import 'reflect-metadata'
 import {DependencyContainer}                        from '../lib/dependency-container'
 import {TestService}                                from './test-service'
-import {InvalidArgumentError, MissingArgumentError} from '../lib/resources/errors'
 import {AbstractTestService}                        from './abstract-test-service'
 import {UnverifiedKeyGenerator}                     from './unverified-key-generator'
 import {TestKeyGenerator}                           from './test-key-generator'
@@ -10,6 +9,7 @@ import {SingletonTestService}                       from './singleton-test-servi
 import {ScopedTestService}                          from './scoped-test-service'
 import {ConstructorMetadataTestService}             from './constructor-metadata-test-service'
 import {PropertyMetadataTestService}                from './property-metadata-test-service'
+import {InvalidArgumentError, MissingArgumentError} from '@dvolper/ts-system'
 
 describe( 'DependencyContainer',
           () => {
@@ -22,14 +22,11 @@ describe( 'DependencyContainer',
                   expect( () => {
                     dc.serve( null )
                   } )
-                    .toThrow( MissingArgumentError( 'dependency',
-                                                    'DependencyContainer::create' ) )
+                    .toThrow( MissingArgumentError )
                   expect( () => {
                     dc.serve( <any>{} )
                   } )
-                    .toThrow( InvalidArgumentError( 'dependency',
-                                                    'of type Function',
-                                                    'DependencyContainer::create' ) )
+                    .toThrow( InvalidArgumentError )
                 } )
             it( 'Create Number',
                 () => {

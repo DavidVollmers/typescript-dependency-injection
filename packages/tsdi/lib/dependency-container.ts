@@ -1,6 +1,5 @@
 import 'reflect-metadata'
 import {DependencyCreator}                          from './dependency-creator'
-import {InvalidArgumentError, MissingArgumentError} from './resources/errors'
 import {AbstractDependency}                         from './abstract-dependency'
 import {DependencyProvider}                         from './dependency-provider'
 import {DependencyQuery}                            from './collections/dependency-query'
@@ -8,6 +7,7 @@ import {DependencyKeyGenerator}                     from './extensions/dependenc
 import {TypeReference}                              from './type-reference'
 import {DependencyInjectionBehaviour}               from './dependency-metadata'
 import {ResolveExtension}                           from './extensions/resolve-extension'
+import {InvalidArgumentError, MissingArgumentError} from '@dvolper/ts-system'
 
 export enum ServingBehaviour
 {
@@ -100,15 +100,17 @@ export class DependencyContainer
     let abstr: AbstractDependency<TAbstraction>
     let dependency: DependencyCreator<TDependency>
     if( provider && typeof provider !== 'function' ) {
-      throw new Error( InvalidArgumentError( 'provider',
-                                             'of type Function',
-                                             'DependencyContainer::add' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'provider',
+                                      'be of type Function',
+                                      '[@dvolper/tsdi]::DependencyContainer::add' )
     }
     if( implementation ) {
       if( typeof implementation !== 'function' ) {
-        throw new Error( InvalidArgumentError( 'implementation',
-                                               'of type Function',
-                                               'DependencyContainer::add' ) )
+        throw new InvalidArgumentError( '@dvolper/tsdi',
+                                        'implementation',
+                                        'be of type Function',
+                                        '[@dvolper/tsdi]::DependencyContainer::add' )
       }
       if( implementation.name === '' ) {
         if( !provider ) {
@@ -118,30 +120,35 @@ export class DependencyContainer
       else {
         dependency = <DependencyCreator<TDependency>>implementation
         if( !abstraction ) {
-          throw new Error( MissingArgumentError( 'abstraction',
-                                                 'DependencyContainer::add' ) )
+          throw new MissingArgumentError( '@dvolper/tsdi',
+                                          'abstraction',
+                                          '[@dvolper/tsdi]::DependencyContainer::add' )
         }
         if( typeof abstraction !== 'function' ) {
-          throw new Error( InvalidArgumentError( 'abstraction',
-                                                 'of type Function',
-                                                 'DependencyContainer::add' ) )
+          throw new InvalidArgumentError( '@dvolper/tsdi',
+                                          'abstraction',
+                                          'be of type Function',
+                                          '[@dvolper/tsdi]::DependencyContainer::add' )
         }
         abstr = <AbstractDependency<TAbstraction>>abstraction
       }
     }
     else if( provider ) {
-      throw new Error( MissingArgumentError( 'implementation',
-                                             'DependencyContainer::add' ) )
+      throw new MissingArgumentError( '@dvolper/tsdi',
+                                      'implementation',
+                                      '[@dvolper/tsdi]::DependencyContainer::add' )
     }
     if( !dependency ) {
       if( !abstraction ) {
-        throw new Error( MissingArgumentError( 'dependency',
-                                               'DependencyContainer::add' ) )
+        throw new MissingArgumentError( '@dvolper/tsdi',
+                                        'dependency',
+                                        '[@dvolper/tsdi]::DependencyContainer::add' )
       }
       if( typeof abstraction !== 'function' ) {
-        throw new Error( InvalidArgumentError( 'dependency',
-                                               'of type Function',
-                                               'DependencyContainer::add' ) )
+        throw new InvalidArgumentError( '@dvolper/tsdi',
+                                        'dependency',
+                                        'be of type Function',
+                                        '[@dvolper/tsdi]::DependencyContainer::add' )
       }
       dependency = <DependencyCreator<TDependency>>abstraction
     }
@@ -173,18 +180,21 @@ export class DependencyContainer
                                                  ...args: any[] ): DependencyQuery<TAbstraction>
   {
     if( !abstraction ) {
-      throw new Error( MissingArgumentError( 'abstraction',
-                                             'DependencyContainer::abstract' ) )
+      throw new MissingArgumentError( '@dvolper/tsdi',
+                                      'abstraction',
+                                      '[@dvolper/tsdi]::DependencyContainer::abstract' )
     }
     if( typeof abstraction !== 'function' ) {
-      throw new Error( InvalidArgumentError( 'abstraction',
-                                             'of type Function',
-                                             'DependencyContainer::abstract' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'abstraction',
+                                      'be of type Function',
+                                      '[@dvolper/tsdi]::DependencyContainer::abstract' )
     }
     if( !Array.isArray( args ) ) {
-      throw new Error( InvalidArgumentError( 'args',
-                                             'of type Array',
-                                             'DependencyContainer::abstract' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'args',
+                                      'be an Array',
+                                      '[@dvolper/tsdi]::DependencyContainer::abstract' )
     }
     const dependencies: DependencyCreator<TAbstraction>[] = []
     for( const key of Object.keys( this._registeredDependencies ) ) {
@@ -240,18 +250,21 @@ export class DependencyContainer
                                              ...args: any[] ): TDependency
   {
     if( !dependency ) {
-      throw new Error( MissingArgumentError( 'dependency',
-                                             'DependencyContainer::create' ) )
+      throw new MissingArgumentError( '@dvolper/tsdi',
+                                      'dependency',
+                                      '[@dvolper/tsdi]::DependencyContainer::create' )
     }
     if( typeof dependency !== 'function' ) {
-      throw new Error( InvalidArgumentError( 'dependency',
-                                             'of type Function',
-                                             'DependencyContainer::create' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'dependency',
+                                      'be of type Function',
+                                      '[@dvolper/tsdi]::DependencyContainer::create' )
     }
     if( !Array.isArray( args ) ) {
-      throw new Error( InvalidArgumentError( 'args',
-                                             'of type Array',
-                                             'DependencyContainer::create' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'args',
+                                      'be an Array',
+                                      '[@dvolper/tsdi]::DependencyContainer::create' )
     }
     if( dependency.__tsdi__ ) {
       if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
@@ -303,13 +316,15 @@ export class DependencyContainer
   public resolve<TDependency extends object> ( dependency: TDependency ): TDependency
   {
     if( !dependency ) {
-      throw new Error( MissingArgumentError( 'dependency',
-                                             'DependencyContainer::resolve' ) )
+      throw new MissingArgumentError( '@dvolper/tsdi',
+                                      'dependency',
+                                      '[@dvolper/tsdi]::DependencyContainer::resolve' )
     }
     if( typeof dependency !== 'object' ) {
-      throw new Error( InvalidArgumentError( 'dependency',
-                                             'of type Object',
-                                             'DependencyContainer::resolve' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'dependency',
+                                      'of type Object',
+                                      '[@dvolper/tsdi]::DependencyContainer::resolve' )
     }
     const creator: DependencyCreator<TDependency> = <any>dependency.constructor
     this.verifyMetadata( creator )
@@ -358,9 +373,10 @@ export class DependencyContainer
   public query ( ...args: any[] ): DependencyQuery<any>
   {
     if( !Array.isArray( args ) ) {
-      throw new Error( InvalidArgumentError( 'args',
-                                             'of type Array',
-                                             'DependencyContainer::query' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'args',
+                                      'be an Array',
+                                      '[@dvolper/tsdi]::DependencyContainer::query' )
     }
     const dependencies: DependencyCreator<any>[] = []
     for( const key of Object.keys( this._registeredDependencies ) ) {
@@ -374,13 +390,15 @@ export class DependencyContainer
   public useScope ( scope: string ): void
   {
     if( !scope ) {
-      throw new Error( MissingArgumentError( 'scope',
-                                             'DependencyContainer::useScope' ) )
+      throw new MissingArgumentError( '@dvolper/tsdi',
+                                      'scope',
+                                      '[@dvolper/tsdi]::DependencyContainer::useScope' )
     }
     if( typeof scope !== 'string' ) {
-      throw new Error( InvalidArgumentError( 'scope',
-                                             'of type String',
-                                             'DependencyContainer::useScope' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'scope',
+                                      'of type String',
+                                      '[@dvolper/tsdi]::DependencyContainer::useScope' )
     }
     if( scope === 'global' && DependencyContainer._globalInstance ) {
       throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
@@ -395,13 +413,15 @@ export class DependencyContainer
   public exitScope ( scope: string ): void
   {
     if( !scope ) {
-      throw new Error( MissingArgumentError( 'scope',
-                                             'DependencyContainer::exitScope' ) )
+      throw new MissingArgumentError( '@dvolper/tsdi',
+                                      'scope',
+                                      '[@dvolper/tsdi]::DependencyContainer::exitScope' )
     }
     if( typeof scope !== 'string' ) {
-      throw new Error( InvalidArgumentError( 'scope',
-                                             'of type String',
-                                             'DependencyContainer::exitScope' ) )
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'scope',
+                                      'of type String',
+                                      '[@dvolper/tsdi]::DependencyContainer::exitScope' )
     }
     if( scope === 'global' ) {
       throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )

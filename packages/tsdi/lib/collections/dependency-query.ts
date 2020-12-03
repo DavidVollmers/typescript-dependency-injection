@@ -2,7 +2,6 @@ import {LazyQuery, Queryable, QueryExpression} from '@dvolper/ts-collections'
 import {DependencyContainer}                   from '../dependency-container'
 import {DependencyCreator}                     from '../dependency-creator'
 
-//TODO extend LazyQuery since returning it from operations is bullshit... (select, where, etc.)
 export class DependencyQuery<TDependency extends object> implements Queryable<TDependency>
 {
   private readonly _query: Queryable<DependencyCreator<TDependency>>
@@ -12,6 +11,14 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
                        private readonly _args: any[] )
   {
     this._query = new LazyQuery( dependencies )
+  }
+
+  public* [ Symbol.iterator ] (): Generator<TDependency, any, TDependency>
+  {
+    for( const dependency of this._query ) {
+      yield this._container.serve( dependency,
+                                   ...this._args )
+    }
   }
 
   public count (): number
@@ -34,14 +41,6 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
     }
     return this._container.serve( <DependencyCreator<TDependency>>firstOrDefault,
                                   ...this._args )
-  }
-
-  public* [ Symbol.iterator ] (): Generator<TDependency, any, TDependency>
-  {
-    for( const dependency of this._query ) {
-      yield this._container.serve( dependency,
-                                   ...this._args )
-    }
   }
 
   public select<TReturn = TDependency> ( expression: QueryExpression<TDependency, TReturn> ): Queryable<TReturn>
