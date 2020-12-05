@@ -22,7 +22,7 @@
 
 • **get __tsdi__**(): *[DependencyMetadata](../modules/_dependency_metadata_.md#dependencymetadata)*
 
-*Defined in [lib/extensions/dependency-key-generator.ts:6](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/extensions/dependency-key-generator.ts#L6)*
+*Defined in [lib/extensions/dependency-key-generator.ts:6](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/extensions/dependency-key-generator.ts#L6)*
 
 **Returns:** *[DependencyMetadata](../modules/_dependency_metadata_.md#dependencymetadata)*
 
@@ -32,7 +32,7 @@
 
 ▸ **verify**(`target`: [TypeReference](../interfaces/_type_reference_.typereference.md)): *void*
 
-*Defined in [lib/extensions/dependency-key-generator.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/extensions/dependency-key-generator.ts#L14)*
+*Defined in [lib/extensions/dependency-key-generator.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/extensions/dependency-key-generator.ts#L14)*
 
 **Parameters:**
 

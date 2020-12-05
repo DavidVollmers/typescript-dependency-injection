@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import {DependencyContainer}                        from '../lib/dependency-container'
+import {DependencyContainer, ServingBehaviour}      from '../lib/dependency-container'
 import {TestService}                                from './test-service'
 import {AbstractTestService}                        from './abstract-test-service'
 import {UnverifiedKeyGenerator}                     from './unverified-key-generator'
@@ -58,9 +58,10 @@ describe( 'DependencyContainer',
                   expect( instance.constructorEcho )
                     .toBe( 'test' )
                 } )
-            it( 'Resolve constructor with unregistered dependencies',
+            it( 'Resolve constructor with unregistered dependencies (in lazy mode)',
                 () => {
-                  const instance = dc.serve( ConstructorMetadataTestService )
+                  dc.servingBehaviour = ServingBehaviour.Lazy
+                  const instance      = dc.serve( ConstructorMetadataTestService )
                   expect( instance instanceof ConstructorMetadataTestService )
                     .toBe( true )
                   expect( () => {
@@ -68,9 +69,19 @@ describe( 'DependencyContainer',
                   } )
                     .toThrow( 'Cannot read property \'echo\' of null' )
                 } )
-            it( 'Resolve constructor with registered dependencies',
+            it( 'Resolve constructor with registered dependencies (in lazy mode)',
                 () => {
+                  dc.servingBehaviour = ServingBehaviour.Lazy
                   dc.add( TestService )
+                  const instance = dc.serve( ConstructorMetadataTestService )
+                  expect( instance instanceof ConstructorMetadataTestService )
+                    .toBe( true )
+                  const input = 'test-input'
+                  expect( instance.echo( input ) )
+                    .toBe( input )
+                } )
+            it( 'Resolve constructor with unregistered dependencies (in greedy mode)',
+                () => {
                   const instance = dc.serve( ConstructorMetadataTestService )
                   expect( instance instanceof ConstructorMetadataTestService )
                     .toBe( true )

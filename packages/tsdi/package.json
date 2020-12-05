@@ -1,6 +1,6 @@
 {
   "name": "@dvolper/tsdi",
-  "version": "0.7.1",
+  "version": "0.8.1",
   "description": "TypeScript Dependency Injection",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es6/index.js",

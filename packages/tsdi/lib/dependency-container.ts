@@ -1,13 +1,13 @@
 import 'reflect-metadata'
-import {DependencyCreator}                          from './dependency-creator'
-import {AbstractDependency}                         from './abstract-dependency'
-import {DependencyProvider}                         from './dependency-provider'
-import {DependencyQuery}                            from './collections/dependency-query'
-import {DependencyKeyGenerator}                     from './extensions/dependency-key-generator'
-import {TypeReference}                              from './type-reference'
-import {DependencyInjectionBehaviour}               from './dependency-metadata'
-import {ResolveExtension}                           from './extensions/resolve-extension'
-import {InvalidArgumentError, MissingArgumentError} from '@dvolper/ts-system'
+import {DependencyCreator}                                           from './dependency-creator'
+import {AbstractDependency}                                          from './abstract-dependency'
+import {DependencyProvider}                                          from './dependency-provider'
+import {DependencyQuery}                                             from './collections/dependency-query'
+import {DependencyKeyGenerator}                                      from './extensions/dependency-key-generator'
+import {TypeReference}                                               from './type-reference'
+import {DependencyInjectionBehaviour}                                from './dependency-metadata'
+import {ResolveExtension}                                            from './extensions/resolve-extension'
+import {AsyncDisposable, InvalidArgumentError, MissingArgumentError} from '@dvolper/ts-system'
 
 export enum ServingBehaviour
 {
@@ -26,7 +26,7 @@ interface RegisteredDependency<TDependency extends object>
  * Each instance has its own dependency and instance cache.
  * Only dependencies marked with `@Singleton` are globally unique.
  */
-export class DependencyContainer
+export class DependencyContainer implements AsyncDisposable
 {
   private static readonly _globalInstance: DependencyContainer = new DependencyContainer( 'global' )
   private readonly _registeredDependencies: {
@@ -42,7 +42,7 @@ export class DependencyContainer
     [ key: string ]: any
   }                                                            = {}
   private _currentScope?: string
-  public servingBehaviour: ServingBehaviour                    = ServingBehaviour.Lazy
+  public servingBehaviour: ServingBehaviour                    = ServingBehaviour.Greedy
 
   /**
    * Do not use the global instance to add dependencies!
@@ -410,7 +410,7 @@ export class DependencyContainer
     this._currentScope = scope
   }
 
-  public exitScope ( scope: string ): void
+  public async exitScope ( scope: string ): Promise<void>
   {
     if( !scope ) {
       throw new MissingArgumentError( '@dvolper/tsdi',
@@ -427,14 +427,19 @@ export class DependencyContainer
       throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
     }
     if( this._currentScope !== scope ) return
-    this.disposeCurrentScope()
+    await this.disposeCurrentScope()
   }
 
-  public dispose (): void
+  public async dispose (): Promise<void>
   {
     if( this._currentScope === 'global' ) throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
-    this.disposeCurrentScope()
+    await this.disposeCurrentScope()
     for( const key of Object.keys( this._singletonInstances ) ) {
+      const instance = this._singletonInstances[ key ]
+      if( typeof instance.dispose === 'function' ) {
+        const result = instance.dispose()
+        if( result instanceof Promise ) await result
+      }
       delete this._singletonInstances[ key ]
     }
     for( const key of Object.keys( this._registeredDependencies ) ) {
@@ -504,9 +509,14 @@ export class DependencyContainer
     return null
   }
 
-  private disposeCurrentScope (): void
+  private async disposeCurrentScope (): Promise<void>
   {
     for( const key of Object.keys( this._scopedInstances ) ) {
+      const instance = this._scopedInstances[ key ]
+      if( typeof instance.dispose === 'function' ) {
+        const result = instance.dispose()
+        if( result instanceof Promise ) await result
+      }
       delete this._scopedInstances[ key ]
     }
     delete this._currentScope

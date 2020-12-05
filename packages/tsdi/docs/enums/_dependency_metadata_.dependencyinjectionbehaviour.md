@@ -16,7 +16,7 @@
 
 • **Scoped**:
 
-*Defined in [lib/dependency-metadata.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/dependency-metadata.ts#L4)*
+*Defined in [lib/dependency-metadata.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/dependency-metadata.ts#L4)*
 
 ___
 
@@ -24,7 +24,7 @@ ___
 
 • **Singleton**:
 
-*Defined in [lib/dependency-metadata.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/dependency-metadata.ts#L5)*
+*Defined in [lib/dependency-metadata.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/dependency-metadata.ts#L5)*
 
 ___
 
@@ -32,4 +32,4 @@ ___
 
 • **Transient**:
 
-*Defined in [lib/dependency-metadata.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/dependency-metadata.ts#L3)*
+*Defined in [lib/dependency-metadata.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/dependency-metadata.ts#L3)*

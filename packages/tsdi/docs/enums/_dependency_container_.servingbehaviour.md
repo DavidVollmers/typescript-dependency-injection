@@ -15,7 +15,7 @@
 
 • **Greedy**:
 
-*Defined in [lib/dependency-container.ts:15](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/dependency-container.ts#L15)*
+*Defined in [lib/dependency-container.ts:15](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/dependency-container.ts#L15)*
 
 ___
 
@@ -23,4 +23,4 @@ ___
 
 • **Lazy**:
 
-*Defined in [lib/dependency-container.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/dependency-container.ts#L14)*
+*Defined in [lib/dependency-container.ts:14](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/dependency-container.ts#L14)*

@@ -45,12 +45,22 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
 
   public select<TReturn = TDependency> ( expression: QueryExpression<TDependency, TReturn> ): Queryable<TReturn>
   {
-    throw new Error( 'TODO' )
+    const instances: TDependency[] = []
+    for( const dependency of this._query ) {
+      instances.push( this._container.serve( dependency,
+                                             ...this._args ) )
+    }
+    return new LazyQuery( instances ).select( expression )
   }
 
   public selectMany<TReturn = TDependency> ( expression: QueryExpression<TDependency, TReturn[]> ): Queryable<TReturn>
   {
-    throw new Error( 'TODO' )
+    const instances: TDependency[] = []
+    for( const dependency of this._query ) {
+      instances.push( this._container.serve( dependency,
+                                             ...this._args ) )
+    }
+    return new LazyQuery( instances ).selectMany( expression )
   }
 
   public single (): TDependency
@@ -73,8 +83,7 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
   public toArray (): TDependency[]
   {
     const instances: TDependency[] = []
-    const dependencies             = this._query.toArray()
-    for( const dependency of dependencies ) {
+    for( const dependency of this._query ) {
       instances.push( this._container.serve( dependency,
                                              ...this._args ) )
     }
@@ -83,6 +92,11 @@ export class DependencyQuery<TDependency extends object> implements Queryable<TD
 
   public where ( expression: QueryExpression<TDependency, boolean> ): Queryable<TDependency>
   {
-    throw new Error( 'TODO' )
+    const instances: TDependency[] = []
+    for( const dependency of this._query ) {
+      instances.push( this._container.serve( dependency,
+                                             ...this._args ) )
+    }
+    return new LazyQuery( instances ).where( expression )
   }
 }

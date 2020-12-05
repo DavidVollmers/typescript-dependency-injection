@@ -39,7 +39,7 @@
 
 \+ **new ClassReference**(...`args`: any[]): *TType*
 
-*Defined in [lib/class-reference.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/class-reference.ts#L4)*
+*Defined in [lib/class-reference.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/class-reference.ts#L4)*
 
 **Parameters:**
 
@@ -57,7 +57,7 @@ Name | Type |
 
 *Inherited from [TypeReference](_type_reference_.typereference.md).[__tsdi__](_type_reference_.typereference.md#optional-__tsdi__)*
 
-*Defined in [lib/type-reference.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/type-reference.ts#L5)*
+*Defined in [lib/type-reference.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/type-reference.ts#L5)*
 
 ___
 

@@ -14,4 +14,4 @@
 
 Ƭ **DependencyCreator**: *[ClassReference](../interfaces/_class_reference_.classreference.md)‹TDependency›*
 
-*Defined in [lib/dependency-creator.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/dependency-creator.ts#L3)*
+*Defined in [lib/dependency-creator.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/dependency-creator.ts#L3)*

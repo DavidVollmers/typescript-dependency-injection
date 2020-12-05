@@ -44,7 +44,7 @@ ___
 
 • **__tsdi__**? : *[DependencyMetadata](../modules/_dependency_metadata_.md#dependencymetadata)*
 
-*Defined in [lib/type-reference.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/eb92b3f/packages/tsdi/lib/type-reference.ts#L5)*
+*Defined in [lib/type-reference.ts:5](https://github.com/DavidVollmers/typescript-dependency-injection/blob/f4ad834/packages/tsdi/lib/type-reference.ts#L5)*
 
 ___
 
