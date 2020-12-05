@@ -343,6 +343,12 @@ export class DependencyContainer implements AsyncDisposable
     if( creator.__tsdi__.resolve && creator.__tsdi__.resolve.properties ) {
       for( const propertyKey of Object.keys( creator.__tsdi__.resolve.properties ) ) {
         const propertyType = creator.__tsdi__.resolve.properties[ propertyKey ]
+        if( propertyType.__tsdi__ ) {
+          if( creator.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
+              && propertyType.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
+            throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
+          }
+        }
         Object.defineProperty( dependency,
                                propertyKey,
                                {
@@ -478,7 +484,8 @@ export class DependencyContainer implements AsyncDisposable
     if( metadata && metadata.length ) {
       const creationArguments: any[] = []
       for( let index = 0; index < metadata.length; index++ ) {
-        creationArguments.push( this.resolveCreationArgument( metadata[ index ],
+        creationArguments.push( this.resolveCreationArgument( dependency,
+                                                              metadata[ index ],
                                                               args ) )
       }
       return creationArguments
@@ -488,12 +495,17 @@ export class DependencyContainer implements AsyncDisposable
     }
   }
 
-  private resolveCreationArgument ( target: any,
-                                    args: any[] ): any
+  private resolveCreationArgument<TDependency extends object> ( dependency: DependencyCreator<TDependency>,
+                                                                target: any,
+                                                                args: any[] ): any
   {
     const type = typeof target
     if( type === 'function' && target.__tsdi__ ) {
       if( this._registeredDependencies[ target.__tsdi__.key ] ) {
+        if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
+            && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
+          throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
+        }
         return this.serve( target )
       }
     }
@@ -503,8 +515,20 @@ export class DependencyContainer implements AsyncDisposable
     if( type === 'function' && target.__tsdi__ ) {
       const instance = this.abstract( target )
                            .firstOrDefault()
-      if( instance ) return instance
-      if( this.servingBehaviour === ServingBehaviour.Greedy ) return this.serve( target )
+      if( instance ) {
+        if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
+            && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
+          throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
+        }
+        return instance
+      }
+      if( this.servingBehaviour === ServingBehaviour.Greedy ) {
+        if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
+            && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
+          throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
+        }
+        return this.serve( target )
+      }
     }
     return null
   }
