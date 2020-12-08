@@ -502,7 +502,7 @@ export class DependencyContainer implements AsyncDisposable
     const type = typeof target
     if( type === 'function' && target.__tsdi__ ) {
       if( this._registeredDependencies[ target.__tsdi__.key ] ) {
-        if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
+        if( dependency.__tsdi__ && dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
             && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
           throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
         }
@@ -516,14 +516,14 @@ export class DependencyContainer implements AsyncDisposable
       const instance = this.abstract( target )
                            .firstOrDefault()
       if( instance ) {
-        if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
+        if( dependency.__tsdi__ && dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
             && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
           throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
         }
         return instance
       }
       if( this.servingBehaviour === ServingBehaviour.Greedy ) {
-        if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
+        if( dependency.__tsdi__ && dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
             && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
           throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
         }
