@@ -14,7 +14,7 @@
 
 Ƭ **DependencyProvider**: *function*
 
-*Defined in [lib/dependency-provider.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/0d9b5c7/packages/tsdi/lib/dependency-provider.ts#L3)*
+*Defined in [lib/dependency-provider.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/2be923b/packages/tsdi/lib/dependency-provider.ts#L3)*
 
 #### Type declaration:
 

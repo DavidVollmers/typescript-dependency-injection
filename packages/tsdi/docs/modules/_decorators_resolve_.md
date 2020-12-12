@@ -14,7 +14,7 @@
 
 ▸ **Resolve**(`target`: any, `propertyKey?`: string): *void*
 
-*Defined in [lib/decorators/resolve.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/0d9b5c7/packages/tsdi/lib/decorators/resolve.ts#L4)*
+*Defined in [lib/decorators/resolve.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/2be923b/packages/tsdi/lib/decorators/resolve.ts#L4)*
 
 **Parameters:**
 

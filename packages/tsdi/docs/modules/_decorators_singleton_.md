@@ -14,7 +14,7 @@
 
 ▸ **Singleton**(`target`: [TypeReference](../interfaces/_type_reference_.typereference.md)): *void*
 
-*Defined in [lib/decorators/singleton.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/0d9b5c7/packages/tsdi/lib/decorators/singleton.ts#L4)*
+*Defined in [lib/decorators/singleton.ts:4](https://github.com/DavidVollmers/typescript-dependency-injection/blob/2be923b/packages/tsdi/lib/decorators/singleton.ts#L4)*
 
 **Parameters:**
 

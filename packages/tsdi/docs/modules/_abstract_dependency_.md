@@ -14,4 +14,4 @@
 
 Ƭ **AbstractDependency**: *[TypeReference](../interfaces/_type_reference_.typereference.md)*
 
-*Defined in [lib/abstract-dependency.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/0d9b5c7/packages/tsdi/lib/abstract-dependency.ts#L3)*
+*Defined in [lib/abstract-dependency.ts:3](https://github.com/DavidVollmers/typescript-dependency-injection/blob/2be923b/packages/tsdi/lib/abstract-dependency.ts#L3)*

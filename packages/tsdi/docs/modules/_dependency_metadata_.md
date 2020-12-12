@@ -18,7 +18,7 @@
 
 Ƭ **DependencyMetadata**: *object*
 
-*Defined in [lib/dependency-metadata.ts:8](https://github.com/DavidVollmers/typescript-dependency-injection/blob/0d9b5c7/packages/tsdi/lib/dependency-metadata.ts#L8)*
+*Defined in [lib/dependency-metadata.ts:8](https://github.com/DavidVollmers/typescript-dependency-injection/blob/2be923b/packages/tsdi/lib/dependency-metadata.ts#L8)*
 
 #### Type declaration:
 
