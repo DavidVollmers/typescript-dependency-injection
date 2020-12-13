@@ -8,6 +8,7 @@ import {TypeReference}                                               from './typ
 import {DependencyInjectionBehaviour}                                from './dependency-metadata'
 import {ResolveExtension}                                            from './extensions/resolve-extension'
 import {AsyncDisposable, InvalidArgumentError, MissingArgumentError} from '@dvolper/ts-system'
+import {LazyQuery, Queryable}                                        from '@dvolper/ts-collections'
 
 export enum ServingBehaviour
 {
@@ -173,11 +174,50 @@ export class DependencyContainer implements AsyncDisposable
    * Queries the DependencyContainer cache based on a specified abstraction.
    *
    * @param abstraction - The abstraction which will be used to query the dependency cache
+   * @returns The queryable containing all cached implementation types of the specified abstraction (See `[@dvolper/ts-collections]::Queryable`)
+   */
+  public abstractTypes<TAbstraction extends object> ( abstraction: AbstractDependency<TAbstraction> ): Queryable<DependencyCreator<TAbstraction>>
+  {
+    if( !abstraction ) {
+      throw new MissingArgumentError( '@dvolper/tsdi',
+                                      'abstraction',
+                                      '[@dvolper/tsdi]::DependencyContainer::abstractTypes' )
+    }
+    if( typeof abstraction !== 'function' ) {
+      throw new InvalidArgumentError( '@dvolper/tsdi',
+                                      'abstraction',
+                                      'be of type Function',
+                                      '[@dvolper/tsdi]::DependencyContainer::abstractTypes' )
+    }
+    const dependencies: DependencyCreator<TAbstraction>[] = []
+    for( const key of Object.keys( this._registeredDependencies ) ) {
+      const dependency = this._registeredDependencies[ key ].dependency
+      if( DependencyContainer.isPrototypeAssignableFrom( dependency.prototype,
+                                                         abstraction ) ) {
+        dependencies.push( dependency )
+      }
+    }
+    if( abstraction.__tsdi__ && abstraction.__tsdi__.key && this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
+      for( const key of this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
+        if( dependencies.filter(
+          d => d.__tsdi__ && d.__tsdi__.key === key ).length ) {
+          continue
+        }
+        dependencies.push( this._registeredDependencies[ key ].dependency )
+      }
+    }
+    return new LazyQuery( dependencies )
+  }
+
+  /**
+   * Queries the DependencyContainer cache based on a specified abstraction.
+   *
+   * @param abstraction - The abstraction which will be used to query the dependency cache
    * @param args - Optional arguments used to create dependency instances later on (See `DependencyContainer::serve`)
-   * @returns The DependencyQuery containing all cached implementations of the specified abstraction (See `DependencyQuery`)
+   * @returns The queryable containing all cached implementations of the specified abstraction (See `[@dvolper/ts-collections]::Queryable`)
    */
   public abstract<TAbstraction extends object> ( abstraction: AbstractDependency<TAbstraction>,
-                                                 ...args: any[] ): DependencyQuery<TAbstraction>
+                                                 ...args: any[] ): Queryable<TAbstraction>
   {
     if( !abstraction ) {
       throw new MissingArgumentError( '@dvolper/tsdi',
@@ -196,22 +236,9 @@ export class DependencyContainer implements AsyncDisposable
                                       'be an Array',
                                       '[@dvolper/tsdi]::DependencyContainer::abstract' )
     }
-    const dependencies: DependencyCreator<TAbstraction>[] = []
-    for( const key of Object.keys( this._registeredDependencies ) ) {
-      const dependency = this._registeredDependencies[ key ].dependency
-      if( DependencyContainer.isPrototypeAssignableFrom( dependency.prototype,
-                                                         abstraction ) ) {
-        dependencies.push( dependency )
-      }
-    }
-    if( abstraction.__tsdi__ && abstraction.__tsdi__.key && this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
-      for( const key of this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
-        if( dependencies.filter( d => d.__tsdi__ && d.__tsdi__.key === key ).length ) continue
-        dependencies.push( this._registeredDependencies[ key ].dependency )
-      }
-    }
+    const dependencies = this.abstractTypes<TAbstraction>( abstraction )
     return new DependencyQuery( this,
-                                dependencies,
+                                dependencies.toArray(),
                                 args )
   }
 
@@ -352,13 +379,14 @@ export class DependencyContainer implements AsyncDisposable
         Object.defineProperty( dependency,
                                propertyKey,
                                {
-                                 get: ( target => {
-                                   let instance: any = null
-                                   return () => {
-                                     if( !instance ) instance = this.serve( target )
-                                     return instance
-                                   }
-                                 } )( propertyType ),
+                                 get: (
+                                   target => {
+                                     let instance: any = null
+                                     return () => {
+                                       if( !instance ) instance = this.serve( target )
+                                       return instance
+                                     }
+                                   } )( propertyType ),
                                } )
       }
     }
@@ -374,7 +402,7 @@ export class DependencyContainer implements AsyncDisposable
    * Queries the DependencyContainer cache.
    *
    * @param args - Optional arguments used to create dependency instances later on (See `DependencyContainer::serve`)
-   * @returns The DependencyQuery containing all cached implementations (See `DependencyQuery`)
+   * @returns The queryable containing all cached implementations (See `DependencyQuery`)
    */
   public query ( ...args: any[] ): DependencyQuery<any>
   {
