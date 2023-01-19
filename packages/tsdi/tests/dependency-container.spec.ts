@@ -1,15 +1,15 @@
 import 'reflect-metadata'
-import {DependencyContainer, ServingBehaviour}      from '../lib/dependency-container'
-import {TestService}                                from './test-service'
-import {AbstractTestService}                        from './abstract-test-service'
-import {UnverifiedKeyGenerator}                     from './unverified-key-generator'
-import {TestKeyGenerator}                           from './test-key-generator'
-import {DependencyCreator}                          from '../lib/dependency-creator'
-import {SingletonTestService}                       from './singleton-test-service'
-import {ScopedTestService}                          from './scoped-test-service'
-import {ConstructorMetadataTestService}             from './constructor-metadata-test-service'
+import {DependencyContainer, ServingBehaviour} from '../lib/dependency-container'
+import {TestService}                           from './test-service'
+import {AbstractTestService}                   from './abstract-test-service'
+import {UnverifiedKeyGenerator}                from './unverified-key-generator'
+import {TestKeyGenerator}                      from './test-key-generator'
+import {DependencyCreator}                     from '../lib/dependency-creator'
+import {SingletonTestService}                  from './singleton-test-service'
+import {ScopedTestService}                     from './scoped-test-service'
+import {ConstructorMetadataTestService}        from './constructor-metadata-test-service'
 import {PropertyMetadataTestService}                from './property-metadata-test-service'
-import {InvalidArgumentError, MissingArgumentError} from '@dvolper/ts-system'
+import {InvalidArgumentError, MissingArgumentError} from '../lib/resources/errors'
 
 describe( 'DependencyContainer',
           () => {
@@ -22,11 +22,14 @@ describe( 'DependencyContainer',
                   expect( () => {
                     dc.serve( null )
                   } )
-                    .toThrow( MissingArgumentError )
+                    .toThrow( MissingArgumentError( 'dependency',
+                                                    'DependencyContainer::create' ) )
                   expect( () => {
                     dc.serve( <any>{} )
                   } )
-                    .toThrow( InvalidArgumentError )
+                    .toThrow( InvalidArgumentError( 'dependency',
+                                                    'of type Function',
+                                                    'DependencyContainer::create' ) )
                 } )
             it( 'Create Number',
                 () => {

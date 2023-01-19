@@ -1,14 +1,13 @@
 import 'reflect-metadata'
-import {DependencyCreator}                                           from './dependency-creator'
-import {AbstractDependency}                                          from './abstract-dependency'
-import {DependencyProvider}                                          from './dependency-provider'
-import {DependencyQuery}                                             from './collections/dependency-query'
-import {DependencyKeyGenerator}                                      from './extensions/dependency-key-generator'
-import {TypeReference}                                               from './type-reference'
-import {DependencyInjectionBehaviour}                                from './dependency-metadata'
-import {ResolveExtension}                                            from './extensions/resolve-extension'
-import {AsyncDisposable, InvalidArgumentError, MissingArgumentError} from '@dvolper/ts-system'
-import {LazyQuery, Queryable}                                        from '@dvolper/ts-collections'
+import {DependencyCreator}                          from './dependency-creator'
+import {InvalidArgumentError, MissingArgumentError} from './resources/errors'
+import {AbstractDependency}                         from './abstract-dependency'
+import {DependencyProvider}                         from './dependency-provider'
+import {DependencyQuery}                            from './collections/dependency-query'
+import {DependencyKeyGenerator}                     from './extensions/dependency-key-generator'
+import {TypeReference}                              from './type-reference'
+import {DependencyInjectionBehaviour}               from './dependency-metadata'
+import {ResolveExtension}                           from './extensions/resolve-extension'
 
 export enum ServingBehaviour
 {
@@ -27,7 +26,7 @@ interface RegisteredDependency<TDependency extends object>
  * Each instance has its own dependency and instance cache.
  * Only dependencies marked with `@Singleton` are globally unique.
  */
-export class DependencyContainer implements AsyncDisposable
+export class DependencyContainer
 {
   private static readonly _globalInstance: DependencyContainer = new DependencyContainer( 'global' )
   private readonly _registeredDependencies: {
@@ -43,7 +42,7 @@ export class DependencyContainer implements AsyncDisposable
     [ key: string ]: any
   }                                                            = {}
   private _currentScope?: string
-  public servingBehaviour: ServingBehaviour                    = ServingBehaviour.Greedy
+  public servingBehaviour: ServingBehaviour                    = ServingBehaviour.Lazy
 
   /**
    * Do not use the global instance to add dependencies!
@@ -101,17 +100,15 @@ export class DependencyContainer implements AsyncDisposable
     let abstr: AbstractDependency<TAbstraction>
     let dependency: DependencyCreator<TDependency>
     if( provider && typeof provider !== 'function' ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'provider',
-                                      'be of type Function',
-                                      '[@dvolper/tsdi]::DependencyContainer::add' )
+      throw new Error( InvalidArgumentError( 'provider',
+                                             'of type Function',
+                                             'DependencyContainer::add' ) )
     }
     if( implementation ) {
       if( typeof implementation !== 'function' ) {
-        throw new InvalidArgumentError( '@dvolper/tsdi',
-                                        'implementation',
-                                        'be of type Function',
-                                        '[@dvolper/tsdi]::DependencyContainer::add' )
+        throw new Error( InvalidArgumentError( 'implementation',
+                                               'of type Function',
+                                               'DependencyContainer::add' ) )
       }
       if( implementation.name === '' ) {
         if( !provider ) {
@@ -121,35 +118,30 @@ export class DependencyContainer implements AsyncDisposable
       else {
         dependency = <DependencyCreator<TDependency>>implementation
         if( !abstraction ) {
-          throw new MissingArgumentError( '@dvolper/tsdi',
-                                          'abstraction',
-                                          '[@dvolper/tsdi]::DependencyContainer::add' )
+          throw new Error( MissingArgumentError( 'abstraction',
+                                                 'DependencyContainer::add' ) )
         }
         if( typeof abstraction !== 'function' ) {
-          throw new InvalidArgumentError( '@dvolper/tsdi',
-                                          'abstraction',
-                                          'be of type Function',
-                                          '[@dvolper/tsdi]::DependencyContainer::add' )
+          throw new Error( InvalidArgumentError( 'abstraction',
+                                                 'of type Function',
+                                                 'DependencyContainer::add' ) )
         }
         abstr = <AbstractDependency<TAbstraction>>abstraction
       }
     }
     else if( provider ) {
-      throw new MissingArgumentError( '@dvolper/tsdi',
-                                      'implementation',
-                                      '[@dvolper/tsdi]::DependencyContainer::add' )
+      throw new Error( MissingArgumentError( 'implementation',
+                                             'DependencyContainer::add' ) )
     }
     if( !dependency ) {
       if( !abstraction ) {
-        throw new MissingArgumentError( '@dvolper/tsdi',
-                                        'dependency',
-                                        '[@dvolper/tsdi]::DependencyContainer::add' )
+        throw new Error( MissingArgumentError( 'dependency',
+                                               'DependencyContainer::add' ) )
       }
       if( typeof abstraction !== 'function' ) {
-        throw new InvalidArgumentError( '@dvolper/tsdi',
-                                        'dependency',
-                                        'be of type Function',
-                                        '[@dvolper/tsdi]::DependencyContainer::add' )
+        throw new Error( InvalidArgumentError( 'dependency',
+                                               'of type Function',
+                                               'DependencyContainer::add' ) )
       }
       dependency = <DependencyCreator<TDependency>>abstraction
     }
@@ -174,20 +166,25 @@ export class DependencyContainer implements AsyncDisposable
    * Queries the DependencyContainer cache based on a specified abstraction.
    *
    * @param abstraction - The abstraction which will be used to query the dependency cache
-   * @returns The queryable containing all cached implementation types of the specified abstraction (See `[@dvolper/ts-collections]::Queryable`)
+   * @param args - Optional arguments used to create dependency instances later on (See `DependencyContainer::serve`)
+   * @returns The DependencyQuery containing all cached implementations of the specified abstraction (See `DependencyQuery`)
    */
-  public abstractTypes<TAbstraction extends object> ( abstraction: AbstractDependency<TAbstraction> ): Queryable<DependencyCreator<TAbstraction>>
+  public abstract<TAbstraction extends object> ( abstraction: AbstractDependency<TAbstraction>,
+                                                 ...args: any[] ): DependencyQuery<TAbstraction>
   {
     if( !abstraction ) {
-      throw new MissingArgumentError( '@dvolper/tsdi',
-                                      'abstraction',
-                                      '[@dvolper/tsdi]::DependencyContainer::abstractTypes' )
+      throw new Error( MissingArgumentError( 'abstraction',
+                                             'DependencyContainer::abstract' ) )
     }
     if( typeof abstraction !== 'function' ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'abstraction',
-                                      'be of type Function',
-                                      '[@dvolper/tsdi]::DependencyContainer::abstractTypes' )
+      throw new Error( InvalidArgumentError( 'abstraction',
+                                             'of type Function',
+                                             'DependencyContainer::abstract' ) )
+    }
+    if( !Array.isArray( args ) ) {
+      throw new Error( InvalidArgumentError( 'args',
+                                             'of type Array',
+                                             'DependencyContainer::abstract' ) )
     }
     const dependencies: DependencyCreator<TAbstraction>[] = []
     for( const key of Object.keys( this._registeredDependencies ) ) {
@@ -199,46 +196,12 @@ export class DependencyContainer implements AsyncDisposable
     }
     if( abstraction.__tsdi__ && abstraction.__tsdi__.key && this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
       for( const key of this._abstractionMapping[ abstraction.__tsdi__.key ] ) {
-        if( dependencies.filter(
-          d => d.__tsdi__ && d.__tsdi__.key === key ).length ) {
-          continue
-        }
+        if( dependencies.filter( d => d.__tsdi__ && d.__tsdi__.key === key ).length ) continue
         dependencies.push( this._registeredDependencies[ key ].dependency )
       }
     }
-    return new LazyQuery( dependencies )
-  }
-
-  /**
-   * Queries the DependencyContainer cache based on a specified abstraction.
-   *
-   * @param abstraction - The abstraction which will be used to query the dependency cache
-   * @param args - Optional arguments used to create dependency instances later on (See `DependencyContainer::serve`)
-   * @returns The queryable containing all cached implementations of the specified abstraction (See `[@dvolper/ts-collections]::Queryable`)
-   */
-  public abstract<TAbstraction extends object> ( abstraction: AbstractDependency<TAbstraction>,
-                                                 ...args: any[] ): Queryable<TAbstraction>
-  {
-    if( !abstraction ) {
-      throw new MissingArgumentError( '@dvolper/tsdi',
-                                      'abstraction',
-                                      '[@dvolper/tsdi]::DependencyContainer::abstract' )
-    }
-    if( typeof abstraction !== 'function' ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'abstraction',
-                                      'be of type Function',
-                                      '[@dvolper/tsdi]::DependencyContainer::abstract' )
-    }
-    if( !Array.isArray( args ) ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'args',
-                                      'be an Array',
-                                      '[@dvolper/tsdi]::DependencyContainer::abstract' )
-    }
-    const dependencies = this.abstractTypes<TAbstraction>( abstraction )
     return new DependencyQuery( this,
-                                dependencies.toArray(),
+                                dependencies,
                                 args )
   }
 
@@ -277,21 +240,18 @@ export class DependencyContainer implements AsyncDisposable
                                              ...args: any[] ): TDependency
   {
     if( !dependency ) {
-      throw new MissingArgumentError( '@dvolper/tsdi',
-                                      'dependency',
-                                      '[@dvolper/tsdi]::DependencyContainer::create' )
+      throw new Error( MissingArgumentError( 'dependency',
+                                             'DependencyContainer::create' ) )
     }
     if( typeof dependency !== 'function' ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'dependency',
-                                      'be of type Function',
-                                      '[@dvolper/tsdi]::DependencyContainer::create' )
+      throw new Error( InvalidArgumentError( 'dependency',
+                                             'of type Function',
+                                             'DependencyContainer::create' ) )
     }
     if( !Array.isArray( args ) ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'args',
-                                      'be an Array',
-                                      '[@dvolper/tsdi]::DependencyContainer::create' )
+      throw new Error( InvalidArgumentError( 'args',
+                                             'of type Array',
+                                             'DependencyContainer::create' ) )
     }
     if( dependency.__tsdi__ ) {
       if( dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
@@ -343,15 +303,13 @@ export class DependencyContainer implements AsyncDisposable
   public resolve<TDependency extends object> ( dependency: TDependency ): TDependency
   {
     if( !dependency ) {
-      throw new MissingArgumentError( '@dvolper/tsdi',
-                                      'dependency',
-                                      '[@dvolper/tsdi]::DependencyContainer::resolve' )
+      throw new Error( MissingArgumentError( 'dependency',
+                                             'DependencyContainer::resolve' ) )
     }
     if( typeof dependency !== 'object' ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'dependency',
-                                      'of type Object',
-                                      '[@dvolper/tsdi]::DependencyContainer::resolve' )
+      throw new Error( InvalidArgumentError( 'dependency',
+                                             'of type Object',
+                                             'DependencyContainer::resolve' ) )
     }
     const creator: DependencyCreator<TDependency> = <any>dependency.constructor
     this.verifyMetadata( creator )
@@ -370,23 +328,16 @@ export class DependencyContainer implements AsyncDisposable
     if( creator.__tsdi__.resolve && creator.__tsdi__.resolve.properties ) {
       for( const propertyKey of Object.keys( creator.__tsdi__.resolve.properties ) ) {
         const propertyType = creator.__tsdi__.resolve.properties[ propertyKey ]
-        if( propertyType.__tsdi__ ) {
-          if( creator.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
-              && propertyType.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
-            throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
-          }
-        }
         Object.defineProperty( dependency,
                                propertyKey,
                                {
-                                 get: (
-                                   target => {
-                                     let instance: any = null
-                                     return () => {
-                                       if( !instance ) instance = this.serve( target )
-                                       return instance
-                                     }
-                                   } )( propertyType ),
+                                 get: ( target => {
+                                   let instance: any = null
+                                   return () => {
+                                     if( !instance ) instance = this.serve( target )
+                                     return instance
+                                   }
+                                 } )( propertyType ),
                                } )
       }
     }
@@ -402,15 +353,14 @@ export class DependencyContainer implements AsyncDisposable
    * Queries the DependencyContainer cache.
    *
    * @param args - Optional arguments used to create dependency instances later on (See `DependencyContainer::serve`)
-   * @returns The queryable containing all cached implementations (See `DependencyQuery`)
+   * @returns The DependencyQuery containing all cached implementations (See `DependencyQuery`)
    */
   public query ( ...args: any[] ): DependencyQuery<any>
   {
     if( !Array.isArray( args ) ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'args',
-                                      'be an Array',
-                                      '[@dvolper/tsdi]::DependencyContainer::query' )
+      throw new Error( InvalidArgumentError( 'args',
+                                             'of type Array',
+                                             'DependencyContainer::query' ) )
     }
     const dependencies: DependencyCreator<any>[] = []
     for( const key of Object.keys( this._registeredDependencies ) ) {
@@ -424,15 +374,13 @@ export class DependencyContainer implements AsyncDisposable
   public useScope ( scope: string ): void
   {
     if( !scope ) {
-      throw new MissingArgumentError( '@dvolper/tsdi',
-                                      'scope',
-                                      '[@dvolper/tsdi]::DependencyContainer::useScope' )
+      throw new Error( MissingArgumentError( 'scope',
+                                             'DependencyContainer::useScope' ) )
     }
     if( typeof scope !== 'string' ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'scope',
-                                      'of type String',
-                                      '[@dvolper/tsdi]::DependencyContainer::useScope' )
+      throw new Error( InvalidArgumentError( 'scope',
+                                             'of type String',
+                                             'DependencyContainer::useScope' ) )
     }
     if( scope === 'global' && DependencyContainer._globalInstance ) {
       throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
@@ -444,36 +392,29 @@ export class DependencyContainer implements AsyncDisposable
     this._currentScope = scope
   }
 
-  public async exitScope ( scope: string ): Promise<void>
+  public exitScope ( scope: string ): void
   {
     if( !scope ) {
-      throw new MissingArgumentError( '@dvolper/tsdi',
-                                      'scope',
-                                      '[@dvolper/tsdi]::DependencyContainer::exitScope' )
+      throw new Error( MissingArgumentError( 'scope',
+                                             'DependencyContainer::exitScope' ) )
     }
     if( typeof scope !== 'string' ) {
-      throw new InvalidArgumentError( '@dvolper/tsdi',
-                                      'scope',
-                                      'of type String',
-                                      '[@dvolper/tsdi]::DependencyContainer::exitScope' )
+      throw new Error( InvalidArgumentError( 'scope',
+                                             'of type String',
+                                             'DependencyContainer::exitScope' ) )
     }
     if( scope === 'global' ) {
       throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
     }
     if( this._currentScope !== scope ) return
-    await this.disposeCurrentScope()
+    this.disposeCurrentScope()
   }
 
-  public async dispose (): Promise<void>
+  public dispose (): void
   {
     if( this._currentScope === 'global' ) throw new Error( '[@dvolper/tsdi]: "global" scope is reserved.' )
-    await this.disposeCurrentScope()
+    this.disposeCurrentScope()
     for( const key of Object.keys( this._singletonInstances ) ) {
-      const instance = this._singletonInstances[ key ]
-      if( typeof instance.dispose === 'function' ) {
-        const result = instance.dispose()
-        if( result instanceof Promise ) await result
-      }
       delete this._singletonInstances[ key ]
     }
     for( const key of Object.keys( this._registeredDependencies ) ) {
@@ -512,8 +453,7 @@ export class DependencyContainer implements AsyncDisposable
     if( metadata && metadata.length ) {
       const creationArguments: any[] = []
       for( let index = 0; index < metadata.length; index++ ) {
-        creationArguments.push( this.resolveCreationArgument( dependency,
-                                                              metadata[ index ],
+        creationArguments.push( this.resolveCreationArgument( metadata[ index ],
                                                               args ) )
       }
       return creationArguments
@@ -523,17 +463,12 @@ export class DependencyContainer implements AsyncDisposable
     }
   }
 
-  private resolveCreationArgument<TDependency extends object> ( dependency: DependencyCreator<TDependency>,
-                                                                target: any,
-                                                                args: any[] ): any
+  private resolveCreationArgument ( target: any,
+                                    args: any[] ): any
   {
     const type = typeof target
     if( type === 'function' && target.__tsdi__ ) {
       if( this._registeredDependencies[ target.__tsdi__.key ] ) {
-        if( dependency.__tsdi__ && dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
-            && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
-          throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
-        }
         return this.serve( target )
       }
     }
@@ -543,32 +478,15 @@ export class DependencyContainer implements AsyncDisposable
     if( type === 'function' && target.__tsdi__ ) {
       const instance = this.abstract( target )
                            .firstOrDefault()
-      if( instance ) {
-        if( dependency.__tsdi__ && dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
-            && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
-          throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
-        }
-        return instance
-      }
-      if( this.servingBehaviour === ServingBehaviour.Greedy ) {
-        if( dependency.__tsdi__ && dependency.__tsdi__.injectionBehaviour === DependencyInjectionBehaviour.Singleton
-            && target.__tsdi__.injectionBehaviour !== DependencyInjectionBehaviour.Singleton ) {
-          throw new Error( '[@dvolper/tsdi]: Injecting non-singleton dependency into singleton is not allowed.' )
-        }
-        return this.serve( target )
-      }
+      if( instance ) return instance
+      if( this.servingBehaviour === ServingBehaviour.Greedy ) return this.serve( target )
     }
     return null
   }
 
-  private async disposeCurrentScope (): Promise<void>
+  private disposeCurrentScope (): void
   {
     for( const key of Object.keys( this._scopedInstances ) ) {
-      const instance = this._scopedInstances[ key ]
-      if( typeof instance.dispose === 'function' ) {
-        const result = instance.dispose()
-        if( result instanceof Promise ) await result
-      }
       delete this._scopedInstances[ key ]
     }
     delete this._currentScope

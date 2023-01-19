@@ -9,8 +9,9 @@ export const Resolve = ( target: any,
     if( !type.__tsdi__ ) type.__tsdi__ = {}
     if( !type.__tsdi__.resolve ) type.__tsdi__.resolve = {}
     if( !type.__tsdi__.resolve.properties ) type.__tsdi__.resolve.properties = {}
-    type.__tsdi__.resolve.properties[ propertyKey ] = Reflect.getMetadata( 'design:type',
+    const metadata                                  = Reflect.getMetadata( 'design:type',
                                                                            target,
                                                                            propertyKey )
+    type.__tsdi__.resolve.properties[ propertyKey ] = metadata
   }
 }

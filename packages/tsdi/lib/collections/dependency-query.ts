@@ -1,102 +1,70 @@
-import {LazyQuery, Queryable, QueryExpression} from '@dvolper/ts-collections'
-import {DependencyContainer}                   from '../dependency-container'
-import {DependencyCreator}                     from '../dependency-creator'
+import {DependencyContainer} from '../dependency-container'
+import {DependencyCreator}   from '../dependency-creator'
 
-export class DependencyQuery<TDependency extends object> implements Queryable<TDependency>
+export class DependencyQuery<TDependency extends object>
 {
-  private readonly _query: Queryable<DependencyCreator<TDependency>>
-
   public constructor ( private readonly _container: DependencyContainer,
-                       dependencies: DependencyCreator<TDependency>[],
+                       private readonly _dependencies: DependencyCreator<TDependency>[],
                        private readonly _args: any[] )
   {
-    this._query = new LazyQuery( dependencies )
-  }
-
-  public* [ Symbol.iterator ] (): Generator<TDependency, any, TDependency>
-  {
-    for( const dependency of this._query ) {
-      yield this._container.serve( dependency,
-                                   ...this._args )
-    }
   }
 
   public count (): number
   {
-    return this._query.count()
+    return this._dependencies.length
   }
 
   public first (): TDependency
   {
-    const first = this._query.first()
-    return this._container.serve( first,
+    if( !this._dependencies.length ) {
+      throw new Error( '[@dvolper/tsdi]: No first element found.' )
+    }
+    return this._container.serve( this._dependencies[0],
                                   ...this._args )
   }
 
   public firstOrDefault<TDefault = null> ( defaultValue?: TDefault ): TDependency | TDefault
   {
-    const firstOrDefault = this._query.firstOrDefault( defaultValue )
-    if( firstOrDefault == null || firstOrDefault === defaultValue ) {
+    if( !this._dependencies.length ) {
       return defaultValue == null ? null : defaultValue
     }
-    return this._container.serve( <DependencyCreator<TDependency>>firstOrDefault,
+    return this._container.serve( this._dependencies[0],
                                   ...this._args )
   }
 
-  public select<TReturn = TDependency> ( expression: QueryExpression<TDependency, TReturn> ): Queryable<TReturn>
+  public* [ Symbol.iterator ] (): Generator<TDependency, any, TDependency>
   {
-    const instances: TDependency[] = []
-    for( const dependency of this._query ) {
-      instances.push( this._container.serve( dependency,
-                                             ...this._args ) )
+    for( const dependency of this._dependencies ) {
+      yield this._container.serve( dependency,
+                                   ...this._args )
     }
-    return new LazyQuery( instances ).select( expression )
-  }
-
-  public selectMany<TReturn = TDependency> ( expression: QueryExpression<TDependency, TReturn[]> ): Queryable<TReturn>
-  {
-    const instances: TDependency[] = []
-    for( const dependency of this._query ) {
-      instances.push( this._container.serve( dependency,
-                                             ...this._args ) )
-    }
-    return new LazyQuery( instances ).selectMany( expression )
   }
 
   public single (): TDependency
   {
-    const single = this._query.single()
-    return this._container.serve( single,
+    if( this._dependencies.length !== 1 ) {
+      throw new Error( '[@dvolper/tsdi]: No single element found.' )
+    }
+    return this._container.serve( this._dependencies[0],
                                   ...this._args )
   }
 
   public singleOrDefault<TDefault = null> ( defaultValue?: TDefault ): TDependency | TDefault
   {
-    const singleOrDefault = this._query.singleOrDefault( defaultValue )
-    if( singleOrDefault == null || singleOrDefault === defaultValue ) {
+    if( this._dependencies.length !== 1 ) {
       return defaultValue == null ? null : defaultValue
     }
-    return this._container.serve( <DependencyCreator<TDependency>>singleOrDefault,
+    return this._container.serve( this._dependencies[0],
                                   ...this._args )
   }
 
   public toArray (): TDependency[]
   {
     const instances: TDependency[] = []
-    for( const dependency of this._query ) {
+    for( const dependency of this._dependencies ) {
       instances.push( this._container.serve( dependency,
                                              ...this._args ) )
     }
     return instances
-  }
-
-  public where ( expression: QueryExpression<TDependency, boolean> ): Queryable<TDependency>
-  {
-    const instances: TDependency[] = []
-    for( const dependency of this._query ) {
-      instances.push( this._container.serve( dependency,
-                                             ...this._args ) )
-    }
-    return new LazyQuery( instances ).where( expression )
   }
 }
